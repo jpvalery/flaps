@@ -15,7 +15,7 @@ export async function subscribe(formData: FormData) {
 	}
 
 	// Basic email validation
-	
+
 	if (!emailRegex.test(email.trim())) {
 		return {
 			success: false,

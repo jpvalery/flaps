@@ -16,7 +16,9 @@ export default function SubscribeForm() {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		if (!email.trim()) { return; }
+		if (!email.trim()) {
+			return;
+		}
 
 		setIsSubmitting(true);
 		setResult(null);
@@ -38,11 +40,10 @@ export default function SubscribeForm() {
 				message: 'An unknown error occurred.',
 			});
 		}
-
 	};
 
 	return (
-		<div className='mx-auto h-min max-w-2xl rounded-lg border border-amber-600/30 bg-zinc-900 p-6'>
+		<div className="mx-auto h-min max-w-2xl rounded-lg border border-amber-600/30 bg-zinc-900 p-6">
 			<div className="mb-6 text-center">
 				<div className="mb-3 flex items-center justify-center">
 					<Mail className="mr-2 h-6 w-6 text-amber-400" />
@@ -54,23 +55,24 @@ export default function SubscribeForm() {
 				</p>
 			</div>
 
-			<form onSubmit={handleSubmit} className='flex items-center justify-center gap-6'>
-				<div>
-					<input
-						type="email"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						placeholder="Enter your email address"
-						required
-						disabled={isSubmitting}
-						className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-white placeholder-zinc-400 transition-colors focus:border-amber-400 focus:outline-none disabled:opacity-50"
-					/>
-				</div>
+			<form
+				onSubmit={handleSubmit}
+				className="flex flex-col items-center justify-center gap-2 md:flex-row md:gap-6"
+			>
+				<input
+					type="email"
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
+					placeholder="Enter your email address"
+					required
+					disabled={isSubmitting}
+					className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-white placeholder-zinc-400 transition-colors focus:border-amber-400 focus:outline-none disabled:opacity-50 md:w-2/3"
+				/>
 
 				<button
 					type="submit"
 					disabled={isSubmitting || !email.trim()}
-					className='rounded bg-amber-600 p-4 font-semibold text-sm text-white transition-colors hover:bg-amber-700 disabled:bg-amber-600/50'
+					className="w-1/3 rounded bg-amber-600 p-4 font-semibold text-sm text-white transition-colors hover:bg-amber-700 disabled:bg-amber-600/50"
 				>
 					{isSubmitting ? 'Subscribing...' : 'Subscribe to Updates'}
 				</button>
