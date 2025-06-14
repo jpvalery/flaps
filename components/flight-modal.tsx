@@ -1,6 +1,6 @@
 'use client';
 
-import { AlertCircle, Clock, Plane, Users, X } from 'lucide-react';
+import { AlertCircle, Clock, Map, Plane, TicketsPlane, Users, X } from 'lucide-react';
 import { useState } from 'react';
 import BookingForm from './booking-form';
 
@@ -50,9 +50,9 @@ export default function FlightModal({
 			<div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-lg border border-amber-600/30 bg-zinc-900">
 				{/* Header */}
 				<div className="flex items-center justify-between border-amber-600/30 border-b p-6">
-					<div className="flex items-center space-x-3">
-						<Plane className="h-6 w-6 text-amber-400" />
-						<h2 className="font-bold text-2xl text-amber-400">Flight Details</h2>
+					<div className="flex items-center space-x-3 text-amber-400">
+						<TicketsPlane className="size-8 -mt-1" />
+						<h2 className="font-bold text-2xl">Flight Details</h2>
 					</div>
 					<button
 						type="button"
@@ -78,15 +78,18 @@ export default function FlightModal({
 							<div className="mb-6 grid gap-6 md:grid-cols-2">
 								<div className="space-y-4">
 									<div>
-										<h3 className="mb-2 font-semibold text-amber-300">Route</h3>
+										<h3 className="flex items-center gap-2 font-semibold text-amber-300">
+											<Map className="size-4" />
+											Route
+										</h3>
 										<p className="text-lg text-white">
 											{flight.departure} → {flight.destination}
 										</p>
 									</div>
 
 									<div>
-										<h3 className="mb-2 flex items-center font-semibold text-amber-300">
-											<Clock className="mr-2 h-4 w-4" />
+										<h3 className="flex items-center gap-2 font-semibold text-amber-300">
+											<Clock className="size-4" />
 											Schedule
 										</h3>
 										<p className="text-white">{formattedDate}</p>
@@ -96,13 +99,16 @@ export default function FlightModal({
 
 								<div className="space-y-4">
 									<div>
-										<h3 className="mb-2 font-semibold text-amber-300">Aircraft</h3>
+										<h3 className="flex items-center gap-2 font-semibold text-amber-300">
+											<Plane className="size-4" />
+											Aircraft
+										</h3>
 										<p className="text-lg text-white">{flight.aircraft}</p>
 									</div>
 
 									<div>
-										<h3 className="mb-2 flex items-center font-semibold text-amber-300">
-											<Users className="mr-2 h-4 w-4" />
+										<h3 className="flex items-center gap-2 font-semibold text-amber-300">
+											<Users className="size-4" />
 											Availability
 										</h3>
 										<p className="text-lg text-white">
@@ -115,8 +121,8 @@ export default function FlightModal({
 							{/* Notes */}
 							{flight.notes !== '' && (
 								<div className="mb-6">
-									<h3 className="mb-2 flex items-center font-semibold text-amber-300">
-										<AlertCircle className="mr-2 h-4 w-4" />
+									<h3 className="flex items-center gap-2 font-semibold text-amber-300">
+										<AlertCircle className="size-4" />
 										Flight Notes
 									</h3>
 
