@@ -17,9 +17,10 @@ interface Flight {
 interface FlightModalProps {
   flight: Flight
   onClose: () => void
+  onBookingComplete?: () => void
 }
 
-export default function FlightModal({ flight, onClose }: FlightModalProps) {
+export default function FlightModal({ flight, onClose, onBookingComplete }: FlightModalProps) {
   const [showBookingForm, setShowBookingForm] = useState(false)
 
   const date = new Date(flight.datetime)
@@ -34,6 +35,11 @@ export default function FlightModal({ flight, onClose }: FlightModalProps) {
     minute: "2-digit",
     hour12: false,
   })
+
+  const handleBookingComplete = () => {
+    setShowBookingForm(false)
+    onBookingComplete?.()
+  }
 
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
@@ -118,7 +124,12 @@ export default function FlightModal({ flight, onClose }: FlightModalProps) {
               </div>
             </>
           ) : (
-            <BookingForm flight={flight} onBack={() => setShowBookingForm(false)} onClose={onClose} />
+            <BookingForm
+              flight={flight}
+              onBack={() => setShowBookingForm(false)}
+              onClose={onClose}
+              onBookingComplete={handleBookingComplete}
+            />
           )}
         </div>
       </div>

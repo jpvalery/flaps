@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { ArrowLeft, User, Mail, Users } from "lucide-react"
+import { reserveFlight } from "@/app/actions/booking"
 
 interface Flight {
   id: string
@@ -19,9 +20,10 @@ interface BookingFormProps {
   flight: Flight
   onBack: () => void
   onClose: () => void
+  onBookingComplete?: () => void
 }
 
-export default function BookingForm({ flight, onBack, onClose }: BookingFormProps) {
+export default function BookingForm({ flight, onBack, onClose, onBookingComplete }: BookingFormProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -29,16 +31,29 @@ export default function BookingForm({ flight, onBack, onClose }: BookingFormProp
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [bookingResult, setBookingResult] = useState<{ success: boolean; message: string; bookingId?: string } | null>(
+    null,
+  )
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    const formDataObj = new FormData()
+    formDataObj.append("flightId", flight.id)
+    formDataObj.append("name", formData.name)
+    formDataObj.append("email", formData.email)
+    formDataObj.append("seats", formData.seats.toString())
 
+    const result = await reserveFlight(formDataObj)
+
+    setBookingResult(result)
     setIsSubmitting(false)
     setIsSubmitted(true)
+
+    if (result.success) {
+      onBookingComplete?.()
+    }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -49,19 +64,36 @@ export default function BookingForm({ flight, onBack, onClose }: BookingFormProp
     }))
   }
 
-  if (isSubmitted) {
+  if (isSubmitted && bookingResult) {
     return (
       <div className="text-center py-8">
-        <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div
+          className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
+            bookingResult.success ? "bg-amber-600" : "bg-red-600"
+          }`}
+        >
           <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            {bookingResult.success ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            )}
           </svg>
         </div>
-        <h3 className="text-2xl font-bold text-amber-400 mb-2">Booking Confirmed!</h3>
+        <h3 className={`text-2xl font-bold mb-2 ${bookingResult.success ? "text-amber-400" : "text-red-400"}`}>
+          {bookingResult.success ? "Booking Reserved!" : "Booking Failed"}
+        </h3>
         <p className="text-zinc-300 mb-6">
-          Your reservation for {formData.seats} seat{formData.seats !== 1 ? "s" : ""} has been confirmed.
-          <br />
-          Check your email for flight details and instructions.
+          {bookingResult.message}
+          {bookingResult.success && (
+            <>
+              <br />
+              <br />
+              <span className="text-amber-300 font-semibold">
+                Important: Check your email and click the confirmation link to secure your seats!
+              </span>
+            </>
+          )}
         </p>
         <button
           onClick={onClose}
@@ -80,7 +112,7 @@ export default function BookingForm({ flight, onBack, onClose }: BookingFormProp
         <button onClick={onBack} className="text-amber-400 hover:text-amber-300 mr-4 transition-colors">
           <ArrowLeft className="w-5 h-5" />
         </button>
-        <h3 className="text-xl font-bold text-amber-400">Book Your Seat</h3>
+        <h3 className="text-xl font-bold text-amber-400">Reserve Your Seat</h3>
       </div>
 
       {/* Flight Summary */}
@@ -163,7 +195,7 @@ export default function BookingForm({ flight, onBack, onClose }: BookingFormProp
             disabled={isSubmitting}
             className="flex-1 bg-amber-600 hover:bg-amber-700 disabled:bg-amber-600/50 text-white font-semibold py-3 px-6 rounded transition-colors"
           >
-            {isSubmitting ? "Processing..." : "Confirm Booking"}
+            {isSubmitting ? "Processing..." : "Reserve Seats"}
           </button>
           <button
             type="button"

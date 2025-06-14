@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+  output="./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Flight {
+  id          String    @id @default(uuid())
+  departure   String    @db.VarChar(4)  // ICAO codes are always 4 characters
+  destination String    @db.VarChar(100)
+  datetime    DateTime
+  spotsLeft   Int       @map("spots_left")
+  aircraft    String    @db.VarChar(100)
+  notes       String?   @db.Text
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  bookings    Booking[]
+
+  @@map("flights")
+}
+
+model Booking {
+  id        String        @id @default(uuid())
+  name      String        @db.VarChar(100)
+  email     String        @db.VarChar(255)
+  seats     Int
+  status    BookingStatus @default(RESERVED)
+  flightId  String        @map("flight_id")
+  createdAt DateTime      @default(now()) @map("created_at")
+  updatedAt DateTime      @updatedAt @map("updated_at")
+  
+  // Relations
+  flight    Flight        @relation(fields: [flightId], references: [id], onDelete: Cascade)
+
+  @@map("bookings")
+}
+
+enum BookingStatus {
+  RESERVED
+  CONFIRMED
+  CANCELLED
+}
