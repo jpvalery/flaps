@@ -19,7 +19,13 @@
 				"noAutofocus": "off"
 			},
 			"complexity": {
-				"useSimplifiedLogicExpression": "off"
+				"useSimplifiedLogicExpression": "off",
+				"noExcessiveCognitiveComplexity": {
+					"level": "warn",
+					"options": {
+						"maxAllowedComplexity": 25
+					}
+				}
 			},
 			"correctness": {
 				"noUndeclaredDependencies": "off",
@@ -65,7 +71,9 @@
 			},
 			"suspicious": {
 				"noReactSpecificProps": "off",
-				"noArrayIndexKey": "off"
+				"noArrayIndexKey": "off",
+				"noConsole": "off",
+				"noConsoleLog": "off"
 			}
 		}
 	},
