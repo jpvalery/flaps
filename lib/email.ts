@@ -9,7 +9,7 @@ export async function sendEmail(data: EmailData): Promise<boolean> {
 		const sendEmail = await resend.emails.send({
 			from: 'Jp <mail@flaps.jpvalery.me>',
 			to: [`${data.to}`],
-			replyTo: process.env.JP_PERSONAL_EMAIL,
+			replyTo: process.env.PILOT_PERSONAL_EMAIL,
 			subject: `${data.subject}`,
 			html: `${data.html}`,
 		});
