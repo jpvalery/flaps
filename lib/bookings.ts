@@ -166,3 +166,33 @@ export async function cancelBooking(id: string): Promise<boolean> {
 		return false;
 	}
 }
+
+export async function getBookingsByFlightId(flightId: string) {
+	try {
+		const bookings = await prisma.booking.findMany({
+			where: { flightId },
+			include: {
+				flight: true,
+			},
+		});
+
+		return bookings;
+	} catch (error) {
+		console.error('Error fetching bookings by flight ID:', error);
+		return [];
+	}
+}
+
+export async function cancelBookingsByFlightId(flightId: string) {
+	try {
+		await prisma.booking.updateMany({
+			where: { flightId },
+			data: { status: 'CANCELLED' },
+		});
+
+		return true;
+	} catch (error) {
+		console.error('Error cancelling bookings by flight ID:', error);
+		return false;
+	}
+}

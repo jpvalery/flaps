@@ -1,6 +1,11 @@
 import { prisma } from './prisma';
 
-import type { CreateFlightPayload, Flight } from '@/types';
+import {
+	cancelBookingsByFlightId,
+	getBookingsByFlightId,
+} from '@/lib/bookings';
+import { generateCancellationEmail, sendEmail } from '@/lib/email';
+import type { Booking, CreateFlightPayload, Flight } from '@/types';
 
 export async function getFlights(): Promise<Flight[]> {
 	try {
@@ -102,5 +107,56 @@ export async function createFlight(payload: CreateFlightPayload) {
 	} catch (error) {
 		console.error('Error creating flight:', error);
 		throw new Error('Flight creation failed');
+	}
+}
+
+export async function cancelFlight(flightId: string): Promise<boolean> {
+	try {
+		// Ensure the flight exists
+		const flight = await prisma.flight.findUnique({ where: { id: flightId } });
+		if (!flight) {
+			throw new Error('Flight not found');
+		}
+
+		// Get associated bookings
+		const bookings = await getBookingsByFlightId(flightId);
+
+		// Update all to status CANCELLED
+		const cancelled = await cancelBookingsByFlightId(flightId);
+		if (!cancelled) {
+			throw new Error('Failed to cancel bookings');
+		}
+
+		// Send emails in parallel
+		await Promise.all(
+			bookings.map(async (booking) => {
+				const bookingForEmail = {
+					...booking,
+					flight: {
+						...booking.flight,
+						datetime: booking.flight.datetime.toISOString(),
+					},
+				};
+
+				const emailData = generateCancellationEmail(bookingForEmail as Booking);
+				await sendEmail({
+					to: booking.email,
+					id: flightId,
+					subject: emailData.subject,
+					html: emailData.html,
+				});
+			})
+		);
+
+		// Safely delete all related bookings and the flight in a transaction
+		await prisma.$transaction([
+			prisma.booking.deleteMany({ where: { flightId } }),
+			prisma.flight.delete({ where: { id: flightId } }),
+		]);
+
+		return true;
+	} catch (error) {
+		console.error('Error cancelling flight:', error);
+		return false;
 	}
 }
