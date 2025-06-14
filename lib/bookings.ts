@@ -139,6 +139,7 @@ export async function cancelBooking(id: string): Promise<boolean> {
 	try {
 		const booking = await prisma.booking.findUnique({
 			where: { id },
+			include: { flight: true },
 		});
 
 		if (!booking) return false;
@@ -146,6 +147,13 @@ export async function cancelBooking(id: string): Promise<boolean> {
 		await prisma.booking.update({
 			where: { id },
 			data: { status: 'CANCELLED' },
+		});
+
+		await prisma.flight.update({
+			where: { id: booking.flightId },
+			data: {
+				spotsLeft: booking.flight.spotsLeft + booking.seats,
+			},
 		});
 
 		return true;

@@ -154,7 +154,7 @@ export default function SplitFlapRow({
 
 				{/* Availability - just number, moved to right */}
 				<div className="col-span-1 flex justify-center gap-1">
-					{spotsText.split('').map((char, index) => (
+				{ spotsText == "0" ? <span className="text-amber-400 animate-pulse">COMPLETE</span> : <>					{spotsText.split('').map((char, index) => (
 						<SplitFlapCharacter
 							key={index}
 							character={char}
@@ -165,7 +165,8 @@ export default function SplitFlapRow({
 									: 0
 							}
 						/>
-					))}
+					))}</>}
+
 				</div>
 			</div>
 		</div>

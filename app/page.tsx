@@ -61,7 +61,7 @@ export default function Home() {
 	}
 
 	return (
-		<div className="min-h-screen bg-zinc-950 text-amber-500">
+		<div className="min-h-screen bg-zinc-950 text-amber-400">
 			{/* Header */}
 			<header className="bg-zinc-900 border-b border-amber-700/40 py-6">
 				<div className="container mx-auto px-4">
@@ -81,7 +81,7 @@ export default function Home() {
 						<div className="grid grid-cols-12 gap-2 text-sm font-semibold tracking-wider text-amber-500">
 							<div className="col-span-2">DEPARTURE</div>
 							<div className="col-span-5">DESTINATION</div>
-							<div className="col-span-4">SCHEDULE</div>
+							<div className="col-span-4">SCHEDULED</div>
 							<div className="col-span-1 text-center">SEATS</div>
 						</div>
 					</div>
