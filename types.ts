@@ -26,6 +26,10 @@ export type EmailData = {
 	html: string;
 };
 
+export type ContactData = {
+	email: string;
+};
+
 export type CreateFlightPayload = {
 	departure: string;
 	destination: string;

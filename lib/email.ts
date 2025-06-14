@@ -1,10 +1,15 @@
 import type { Booking, EmailData } from '@/types';
 
+import { createContact } from '@/lib/contacts';
+
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendEmail(data: EmailData): Promise<boolean> {
+	// we upsert the contact for future use
+	await createContact({ email: data.to });
+	// we send the email
 	try {
 		const sendEmail = await resend.emails.send({
 			from: 'Jp <mail@flaps.jpvalery.me>',
