@@ -55,6 +55,7 @@ export default function FlightModal({
 						<h2 className="text-2xl font-bold text-amber-400">Flight Details</h2>
 					</div>
 					<button
+						type="button"
 						onClick={onClose}
 						className="text-amber-400 hover:text-amber-300 transition-colors"
 					>
@@ -105,7 +106,7 @@ export default function FlightModal({
 							</div>
 
 							{/* Notes */}
-							{flight.notes != '' && (
+							{flight.notes !== '' && (
 								<div className="mb-6">
 									<h3 className="text-amber-300 font-semibold mb-2 flex items-center">
 										<AlertCircle className="w-4 h-4 mr-2" />
@@ -120,13 +121,19 @@ export default function FlightModal({
 
 							{/* Action Buttons */}
 							<div className="flex space-x-4">
-								<button
-									onClick={() => setShowBookingForm(true)}
-									className="flex-1 bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 px-6 rounded transition-colors"
-									disabled={flight.spotsLeft === 0}
-								>
-									{flight.spotsLeft === 0 ? 'Fully Booked' : 'Book this flight'}
-								</button>
+								{flight.spotsLeft === 0 ? (
+									<div className="flex-1 items-center justify-center text-center cursor-not-allowed border-zinc-600 border text-zinc-600 font-semibold py-3 px-6 rounded transition-colors">
+										Fully Booked
+									</div>
+								) : (
+									<button
+										onClick={() => setShowBookingForm(true)}
+										className="flex-1 bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 px-6 rounded transition-colors"
+										disabled={flight.spotsLeft === 0}
+									>
+										Book this flight
+									</button>
+								)}
 							</div>
 						</>
 					) : (

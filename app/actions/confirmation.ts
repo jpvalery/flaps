@@ -4,9 +4,12 @@ import { revalidatePath } from 'next/cache';
 
 export async function confirmBookingAction(bookingId: string) {
 	try {
-		const createCall = await fetch(`${process.env.WWW}/api/booking/confirm/${bookingId}`, {
-			method: 'POST',
-		});
+		const createCall = await fetch(
+			`${process.env.WWW}/api/booking/confirm/${bookingId}`,
+			{
+				method: 'POST',
+			}
+		);
 
 		const success = await createCall.json();
 
@@ -38,9 +41,12 @@ export async function confirmBookingAction(bookingId: string) {
 
 export async function cancelBookingAction(bookingId: string) {
 	try {
-		const createCall = await fetch(`${process.env.WWW}/api/booking/cancel/${bookingId}`, {
-			method: 'DELETE',
-		});
+		const createCall = await fetch(
+			`${process.env.WWW}/api/booking/cancel/${bookingId}`,
+			{
+				method: 'DELETE',
+			}
+		);
 
 		const success = await createCall.json();
 
