@@ -10,7 +10,7 @@ export async function sendEmail(data: EmailData): Promise<boolean> {
 			from: 'Jp <mail@flaps.jpvalery.me>',
 			to: [`${data.to}`],
 			replyTo: process.env.JP_PERSONAL_EMAIL,
-			subject: `Confirm your booking`,
+			subject: 'Confirm your booking',
 			html: `HTML: ${data.html}`,
 		});
 

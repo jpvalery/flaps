@@ -1,7 +1,7 @@
 'use client';
 
 import { reserveFlight } from '@/app/actions/booking';
-import { ArrowLeft, Mail, User, Users } from 'lucide-react';
+import { ArrowLeft, Check, Mail, User, Users, X } from 'lucide-react';
 import type React from 'react';
 import { useState } from 'react';
 
@@ -22,12 +22,7 @@ interface BookingFormProps {
 	onBookingComplete?: () => void;
 }
 
-export default function BookingForm({
-	flight,
-	onBack,
-	onClose,
-	onBookingComplete,
-}: BookingFormProps) {
+export default function BookingForm({ flight, onBack }: BookingFormProps) {
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -75,47 +70,30 @@ export default function BookingForm({
 
 	if (bookingResult) {
 		return (
-			<div className="text-center py-8">
+			<div className="py-8 text-center">
 				<div
-					className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
-						bookingResult.success ? 'bg-amber-600' : 'bg-red-600'
+					className={`mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full ${
+						bookingResult.success ? 'bg-emerald-600' : 'bg-red-600'
 					}`}
 				>
-					<svg
-						className="w-8 h-8 text-white"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-					>
-						{bookingResult.success ? (
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M5 13l4 4L19 7"
-							/>
-						) : (
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M6 18L18 6M6 6l12 12"
-							/>
-						)}
-					</svg>
+					{bookingResult.success ? (
+						<Check className="size-8 text-white" />
+					) : (
+						<X className="size-8 text-white" />
+					)}
 				</div>
 				<h3
-					className={`text-2xl font-bold mb-2 ${bookingResult.success ? 'text-amber-400' : 'text-red-400'}`}
+					className={`mb-2 font-bold text-2xl ${bookingResult.success ? 'text-emerald-400' : 'text-red-400'}`}
 				>
 					{bookingResult.success ? 'Booking Reserved!' : 'Booking Failed'}
 				</h3>
-				<p className="text-zinc-300 mb-6">
+				<p className="mb-6 text-zinc-300">
 					{bookingResult.message}
 					{bookingResult.success && (
 						<>
 							<br />
 							<br />
-							<span className="text-amber-300 font-semibold">
+							<span className="font-semibold text-amber-300">
 								Important: Check your email and click the confirmation link to secure
 								your seats!
 							</span>
@@ -129,19 +107,20 @@ export default function BookingForm({
 	return (
 		<div>
 			{/* Header */}
-			<div className="flex items-center mb-6">
+			<div className="mb-6 flex items-center">
 				<button
+					type="button"
 					onClick={onBack}
-					className="text-amber-400 hover:text-amber-300 mr-4 transition-colors"
+					className="mr-4 text-amber-400 transition-colors hover:text-amber-300"
 				>
-					<ArrowLeft className="w-5 h-5" />
+					<ArrowLeft className="h-5 w-5" />
 				</button>
-				<h3 className="text-xl font-bold text-amber-400">Reserve Your Seat</h3>
+				<h3 className="font-bold text-amber-400 text-xl">Reserve Your Seat</h3>
 			</div>
 
 			{/* Flight Summary */}
-			<div className="bg-zinc-800/50 p-4 rounded border border-zinc-700 mb-6">
-				<p className="text-amber-300 font-semibold">
+			<div className="mb-6 rounded border border-zinc-700 bg-zinc-800/50 p-4">
+				<p className="font-semibold text-amber-300">
 					{flight.departure} → {flight.destination}
 				</p>
 				<p className="text-zinc-300">
@@ -162,57 +141,57 @@ export default function BookingForm({
 			{/* Form */}
 			<form onSubmit={handleSubmit} className="space-y-6">
 				<div>
-					<label className="block text-amber-300 font-semibold mb-2">
-						<User className="w-4 h-4 inline mr-2" />
+					<label className="mb-2 block font-semibold text-amber-300">
+						<User className="mr-2 inline h-4 w-4" />
 						Full Name
+						<input
+							type="text"
+							name="name"
+							value={formData.name}
+							onChange={handleInputChange}
+							required
+							className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-white transition-colors focus:border-amber-400 focus:outline-none"
+							placeholder="Enter your full name"
+						/>
 					</label>
-					<input
-						type="text"
-						name="name"
-						value={formData.name}
-						onChange={handleInputChange}
-						required
-						className="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3 text-white focus:border-amber-400 focus:outline-none transition-colors"
-						placeholder="Enter your full name"
-					/>
 				</div>
 
 				<div>
-					<label className="block text-amber-300 font-semibold mb-2">
-						<Mail className="w-4 h-4 inline mr-2" />
+					<label className="mb-2 block font-semibold text-amber-300">
+						<Mail className="mr-2 inline h-4 w-4" />
 						Email Address
+						<input
+							type="email"
+							name="email"
+							value={formData.email}
+							onChange={handleInputChange}
+							required
+							className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-white transition-colors focus:border-amber-400 focus:outline-none"
+							placeholder="Enter your email address"
+						/>
 					</label>
-					<input
-						type="email"
-						name="email"
-						value={formData.email}
-						onChange={handleInputChange}
-						required
-						className="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3 text-white focus:border-amber-400 focus:outline-none transition-colors"
-						placeholder="Enter your email address"
-					/>
 				</div>
 
 				<div>
-					<label className="block text-amber-300 font-semibold mb-2">
-						<Users className="w-4 h-4 inline mr-2" />
+					<label className="mb-2 block font-semibold text-amber-300">
+						<Users className="mr-2 inline h-4 w-4" />
 						Number of Seats
+						<select
+							name="seats"
+							value={formData.seats}
+							onChange={handleInputChange}
+							className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-white transition-colors focus:border-amber-400 focus:outline-none"
+						>
+							{Array.from(
+								{ length: Math.min(flight.spotsLeft, 4) },
+								(_, i) => i + 1
+							).map((num) => (
+								<option key={num} value={num}>
+									{num} seat{num !== 1 ? 's' : ''}
+								</option>
+							))}
+						</select>
 					</label>
-					<select
-						name="seats"
-						value={formData.seats}
-						onChange={handleInputChange}
-						className="w-full bg-zinc-800 border border-zinc-700 rounded px-4 py-3 text-white focus:border-amber-400 focus:outline-none transition-colors"
-					>
-						{Array.from(
-							{ length: Math.min(flight.spotsLeft, 4) },
-							(_, i) => i + 1
-						).map((num) => (
-							<option key={num} value={num}>
-								{num} seat{num !== 1 ? 's' : ''}
-							</option>
-						))}
-					</select>
 				</div>
 
 				{/* Submit Button */}
@@ -220,14 +199,14 @@ export default function BookingForm({
 					<button
 						type="submit"
 						disabled={isSubmitting}
-						className="flex-1 bg-amber-600 hover:bg-amber-700 disabled:bg-amber-600/50 text-white font-semibold py-3 px-6 rounded transition-colors"
+						className="flex-1 rounded bg-amber-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-amber-700 disabled:bg-amber-600/50"
 					>
 						{isSubmitting ? 'Processing...' : 'Reserve Seats'}
 					</button>
 					<button
 						type="button"
 						onClick={onBack}
-						className="px-6 py-3 border border-amber-600/50 text-amber-400 hover:bg-amber-600/10 rounded transition-colors"
+						className="rounded border border-amber-600/50 px-6 py-3 text-amber-400 transition-colors hover:bg-amber-600/10"
 					>
 						Back
 					</button>

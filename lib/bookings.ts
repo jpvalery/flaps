@@ -68,7 +68,9 @@ export async function getBookingById(id: string): Promise<Booking | null> {
 			},
 		});
 
-		if (!booking) return null;
+		if (!booking) {
+			return null;
+		}
 
 		return {
 			id: booking.id,
@@ -142,7 +144,9 @@ export async function cancelBooking(id: string): Promise<boolean> {
 			include: { flight: true },
 		});
 
-		if (!booking) return false;
+		if (!booking) {
+			return false;
+		}
 
 		await prisma.booking.update({
 			where: { id },

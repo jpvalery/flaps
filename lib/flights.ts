@@ -31,7 +31,9 @@ export async function getFlightById(id: string): Promise<Flight | null> {
 			where: { id },
 		});
 
-		if (!flight) return null;
+		if (!flight) {
+			return null;
+		}
 
 		return {
 			id: flight.id,

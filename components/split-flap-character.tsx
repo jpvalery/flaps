@@ -32,19 +32,13 @@ export default function SplitFlapCharacter({
 	}, [character, delay]);
 
 	if (character === ' ') {
-		return <div className="w-3"></div>;
+		return <div className="w-3" />;
 	}
 
 	return (
 		<div className="relative">
 			<div
-				className={`
-          w-8 h-12 bg-gradient-to-b from-zinc-700 to-zinc-800 
-          border border-zinc-600 rounded-sm shadow-lg
-          flex items-center justify-center
-          font-mono font-bold text-zinc-50 text-lg
-          transition-transform duration-150 ease-in-out
-          ${isFlipped ? 'scale-y-0' : 'scale-y-100'}
+				className={`flex h-12 w-8 items-center justify-center rounded-sm border border-zinc-600 bg-gradient-to-b from-zinc-700 to-zinc-800 font-bold font-mono text-lg text-zinc-50 shadow-lg transition-transform duration-150 ease-in-out ${isFlipped ? 'scale-y-0' : 'scale-y-100'}
         `}
 				style={{
 					transformOrigin: 'center',
@@ -54,13 +48,13 @@ export default function SplitFlapCharacter({
 			</div>
 
 			{/* Top highlight */}
-			<div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-400/20 to-transparent rounded-t-sm"></div>
+			<div className="absolute top-0 right-0 left-0 h-1 rounded-t-sm bg-gradient-to-r from-transparent via-amber-400/20 to-transparent" />
 
 			{/* Center line */}
-			<div className="absolute top-1/2 left-0 right-0 h-px bg-zinc-900 transform -translate-y-px"></div>
+			<div className="-translate-y-px absolute top-1/2 right-0 left-0 h-px transform bg-zinc-900" />
 
 			{/* Bottom shadow */}
-			<div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-t from-black/30 to-transparent rounded-b-sm"></div>
+			<div className="absolute right-0 bottom-0 left-0 h-2 rounded-b-sm bg-gradient-to-t from-black/30 to-transparent" />
 		</div>
 	);
 }

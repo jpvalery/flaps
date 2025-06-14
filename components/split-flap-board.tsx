@@ -22,7 +22,7 @@ export default function SplitFlapBoard({
 	onFlightClick,
 }: SplitFlapBoardProps) {
 	return (
-		<div className="bg-zinc-900 border-x border-b border-amber-600/30 rounded-b-lg overflow-hidden">
+		<div className="overflow-hidden rounded-b-lg border-amber-600/30 border-x border-b bg-zinc-900">
 			{flights.map((flight, index) => (
 				<SplitFlapRow
 					key={flight.id}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import InteractiveWrapper from './interactive-wrapper';
 import SplitFlapCharacter from './split-flap-character';
 
 interface Flight {
@@ -38,11 +39,11 @@ export default function SplitFlapRow({
 	const spotsText = flight.spotsLeft.toString();
 
 	return (
-		<div
-			className="border-b border-amber-600/20 last:border-b-0 hover:bg-zinc-800/50 cursor-pointer transition-colors duration-200"
+		<InteractiveWrapper
+			className="cursor-pointer border-amber-600/20 border-b transition-colors duration-200 last:border-b-0 hover:bg-zinc-800/50"
 			onClick={onClick}
 		>
-			<div className="grid grid-cols-12 gap-2 p-4 items-center">
+			<div className="grid grid-cols-12 items-center gap-2 p-4">
 				{/* Departure - 4 chars, fixed width */}
 				<div className="col-span-2 flex space-x-1">
 					{flight.departure.split('').map((char, index) => (
@@ -89,7 +90,7 @@ export default function SplitFlapRow({
 					/>
 
 					{/* Separator */}
-					<span className="text-amber-400 font-mono text-lg">/</span>
+					<span className="font-mono text-amber-400 text-lg">/</span>
 
 					{/* Month flaps */}
 					<SplitFlapCharacter
@@ -110,7 +111,7 @@ export default function SplitFlapRow({
 					/>
 
 					{/* Space */}
-					<div className="w-2"></div>
+					<div className="w-2" />
 
 					{/* Hour flaps */}
 					<SplitFlapCharacter
@@ -131,7 +132,7 @@ export default function SplitFlapRow({
 					/>
 
 					{/* Separator */}
-					<span className="text-amber-400 font-mono text-lg">:</span>
+					<span className="font-mono text-amber-400 text-lg">:</span>
 
 					{/* Minute flaps */}
 					<SplitFlapCharacter
@@ -154,8 +155,8 @@ export default function SplitFlapRow({
 
 				{/* Availability - just number, moved to right */}
 				<div className="col-span-1 flex justify-center gap-1">
-					{spotsText == '0' ? (
-						<span className="text-amber-400 animate-pulse">COMPLETE</span>
+					{spotsText === '0' ? (
+						<span className="animate-pulse text-amber-400">COMPLETE</span>
 					) : (
 						<>
 							{' '}
@@ -175,6 +176,6 @@ export default function SplitFlapRow({
 					)}
 				</div>
 			</div>
-		</div>
+		</InteractiveWrapper>
 	);
 }

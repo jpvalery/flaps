@@ -46,59 +46,66 @@ export default function FlightModal({
 	};
 
 	return (
-		<div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
-			<div className="bg-zinc-900 border border-amber-600/30 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+			<div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-lg border border-amber-600/30 bg-zinc-900">
 				{/* Header */}
-				<div className="flex items-center justify-between p-6 border-b border-amber-600/30">
+				<div className="flex items-center justify-between border-amber-600/30 border-b p-6">
 					<div className="flex items-center space-x-3">
-						<Plane className="w-6 h-6 text-amber-400" />
-						<h2 className="text-2xl font-bold text-amber-400">Flight Details</h2>
+						<Plane className="h-6 w-6 text-amber-400" />
+						<h2 className="font-bold text-2xl text-amber-400">Flight Details</h2>
 					</div>
 					<button
 						type="button"
 						onClick={onClose}
-						className="text-amber-400 hover:text-amber-300 transition-colors"
+						className="text-amber-400 transition-colors hover:text-amber-300"
 					>
-						<X className="w-6 h-6" />
+						<X className="h-6 w-6" />
 					</button>
 				</div>
 
 				{/* Content */}
 				<div className="p-6">
-					{!showBookingForm ? (
+					{showBookingForm ? (
+						<BookingForm
+							flight={flight}
+							onBack={() => setShowBookingForm(false)}
+							onClose={onClose}
+							onBookingComplete={handleBookingComplete}
+						/>
+					) : (
 						<>
 							{/* Flight Info */}
-							<div className="grid md:grid-cols-2 gap-6 mb-6">
+							<div className="mb-6 grid gap-6 md:grid-cols-2">
 								<div className="space-y-4">
 									<div>
-										<h3 className="text-amber-300 font-semibold mb-2">Route</h3>
-										<p className="text-white text-lg">
+										<h3 className="mb-2 font-semibold text-amber-300">Route</h3>
+										<p className="text-lg text-white">
 											{flight.departure} → {flight.destination}
 										</p>
 									</div>
 
 									<div>
-										<h3 className="text-amber-300 font-semibold mb-2 flex items-center">
-											<Clock className="w-4 h-4 mr-2" />
+										<h3 className="mb-2 flex items-center font-semibold text-amber-300">
+											<Clock className="mr-2 h-4 w-4" />
 											Schedule
 										</h3>
 										<p className="text-white">{formattedDate}</p>
-										<p className="text-white text-lg font-mono">{formattedTime}</p>
+										<p className="font-mono text-lg text-white">{formattedTime}</p>
 									</div>
 								</div>
 
 								<div className="space-y-4">
 									<div>
-										<h3 className="text-amber-300 font-semibold mb-2">Aircraft</h3>
-										<p className="text-white text-lg">{flight.aircraft}</p>
+										<h3 className="mb-2 font-semibold text-amber-300">Aircraft</h3>
+										<p className="text-lg text-white">{flight.aircraft}</p>
 									</div>
 
 									<div>
-										<h3 className="text-amber-300 font-semibold mb-2 flex items-center">
-											<Users className="w-4 h-4 mr-2" />
+										<h3 className="mb-2 flex items-center font-semibold text-amber-300">
+											<Users className="mr-2 h-4 w-4" />
 											Availability
 										</h3>
-										<p className="text-white text-lg">
+										<p className="text-lg text-white">
 											{flight.spotsLeft} seat{flight.spotsLeft !== 1 ? 's' : ''} remaining
 										</p>
 									</div>
@@ -108,12 +115,12 @@ export default function FlightModal({
 							{/* Notes */}
 							{flight.notes !== '' && (
 								<div className="mb-6">
-									<h3 className="text-amber-300 font-semibold mb-2 flex items-center">
-										<AlertCircle className="w-4 h-4 mr-2" />
+									<h3 className="mb-2 flex items-center font-semibold text-amber-300">
+										<AlertCircle className="mr-2 h-4 w-4" />
 										Flight Notes
 									</h3>
 
-									<p className="text-zinc-300 bg-zinc-800/50 p-3 rounded border border-zinc-700">
+									<p className="rounded border border-zinc-700 bg-zinc-800/50 p-3 text-zinc-300">
 										{flight.notes}
 									</p>
 								</div>
@@ -122,13 +129,14 @@ export default function FlightModal({
 							{/* Action Buttons */}
 							<div className="flex space-x-4">
 								{flight.spotsLeft === 0 ? (
-									<div className="flex-1 items-center justify-center text-center cursor-not-allowed border-zinc-600 border text-zinc-600 font-semibold py-3 px-6 rounded transition-colors">
+									<div className="flex-1 cursor-not-allowed items-center justify-center rounded border border-zinc-600 px-6 py-3 text-center font-semibold text-zinc-600 transition-colors">
 										Fully Booked
 									</div>
 								) : (
 									<button
+										type="button"
 										onClick={() => setShowBookingForm(true)}
-										className="flex-1 bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 px-6 rounded transition-colors"
+										className="flex-1 rounded bg-amber-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-amber-700"
 										disabled={flight.spotsLeft === 0}
 									>
 										Book this flight
@@ -136,13 +144,6 @@ export default function FlightModal({
 								)}
 							</div>
 						</>
-					) : (
-						<BookingForm
-							flight={flight}
-							onBack={() => setShowBookingForm(false)}
-							onClose={onClose}
-							onBookingComplete={handleBookingComplete}
-						/>
 					)}
 				</div>
 			</div>
