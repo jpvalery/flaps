@@ -105,15 +105,18 @@ export default function FlightModal({
 							</div>
 
 							{/* Notes */}
-							<div className="mb-6">
-								<h3 className="text-amber-300 font-semibold mb-2 flex items-center">
-									<AlertCircle className="w-4 h-4 mr-2" />
-									Flight Notes
-								</h3>
-								<p className="text-zinc-300 bg-zinc-800/50 p-3 rounded border border-zinc-700">
-									{flight.notes}
-								</p>
-							</div>
+							{flight.notes != '' && (
+								<div className="mb-6">
+									<h3 className="text-amber-300 font-semibold mb-2 flex items-center">
+										<AlertCircle className="w-4 h-4 mr-2" />
+										Flight Notes
+									</h3>
+
+									<p className="text-zinc-300 bg-zinc-800/50 p-3 rounded border border-zinc-700">
+										{flight.notes}
+									</p>
+								</div>
+							)}
 
 							{/* Action Buttons */}
 							<div className="flex space-x-4">
@@ -122,13 +125,7 @@ export default function FlightModal({
 									className="flex-1 bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 px-6 rounded transition-colors"
 									disabled={flight.spotsLeft === 0}
 								>
-									{flight.spotsLeft === 0 ? 'Fully Booked' : 'Book This Flight'}
-								</button>
-								<button
-									onClick={onClose}
-									className="px-6 py-3 border border-amber-600/50 text-amber-400 hover:bg-amber-600/10 rounded transition-colors"
-								>
-									Close
+									{flight.spotsLeft === 0 ? 'Fully Booked' : 'Book this flight'}
 								</button>
 							</div>
 						</>

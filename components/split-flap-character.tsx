@@ -42,7 +42,7 @@ export default function SplitFlapCharacter({
           w-8 h-12 bg-gradient-to-b from-zinc-700 to-zinc-800 
           border border-zinc-600 rounded-sm shadow-lg
           flex items-center justify-center
-          font-mono font-bold text-amber-400 text-lg
+          font-mono font-bold text-zinc-50 text-lg
           transition-transform duration-150 ease-in-out
           ${isFlipped ? 'scale-y-0' : 'scale-y-100'}
         `}
