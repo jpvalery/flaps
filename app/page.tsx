@@ -70,23 +70,25 @@ export default function Home() {
 			<main className="container mx-auto px-4 py-8">
 				<div className="mx-auto max-w-6xl">
 					{/* Board Header */}
-					<div className="rounded-t-lg border border-amber-700/40 bg-zinc-900 p-4">
-						<div className="grid grid-cols-12 gap-2 font-semibold text-amber-500 text-sm tracking-wider">
-							<div className="col-span-2">DEPARTURE</div>
-							<div className="col-span-5">DESTINATION</div>
-							<div className="col-span-4">SCHEDULED</div>
-							<div className="col-span-1 text-center">SEATS</div>
+					<section className="hidden lg:inline">
+						<div className="rounded-t-lg border border-amber-700/40 bg-zinc-900 p-4">
+							<div className="grid grid-cols-12 gap-2 font-semibold text-amber-500 text-sm tracking-wider">
+								<div className="col-span-2">DEPARTURE</div>
+								<div className="col-span-5">DESTINATION</div>
+								<div className="col-span-4">SCHEDULED</div>
+								<div className="col-span-1 text-center">SEATS</div>
+							</div>
 						</div>
-					</div>
+					</section>
 
 					{/* Split Flap Board */}
-					{flights.length > 0 ? (
-						<SplitFlapBoard flights={flights} onFlightClick={setSelectedFlight} />
-					) : (
-						<div className="rounded-b-lg border-amber-600/30 border-x border-b bg-zinc-900 p-8 text-center">
+					<div className="overflow-hidden rounded-b-lg border-amber-600/30 border-x border-b bg-zinc-900 max-lg:rounded-lg max-lg:border">
+						{flights.length > 0 ? (
+							<SplitFlapBoard flights={flights} onFlightClick={setSelectedFlight} />
+						) : (
 							<p className="text-amber-300">No flights available at this time.</p>
-						</div>
-					)}
+						)}
+					</div>
 				</div>
 			</main>
 

@@ -92,17 +92,17 @@ export default function SplitFlapCharacter({
 			</div>
 
 			{/* Top highlight */}
-			<div className='absolute top-0 right-0 left-0 h-1 rounded-t-sm bg-gradient-to-r from-transparent via-amber-400/20 to-transparent' />
+			<div className="absolute top-0 right-0 left-0 h-1 rounded-t-sm bg-gradient-to-r from-transparent via-amber-400/20 to-transparent" />
 
 			{/* Center line */}
-			<div className='-translate-y-px absolute top-1/2 right-0 left-0 h-px transform bg-zinc-900' />
+			<div className="-translate-y-px absolute top-1/2 right-0 left-0 h-px transform bg-zinc-900" />
 
 			{/* Bottom shadow */}
-			<div className='absolute right-0 bottom-0 left-0 h-2 rounded-b-sm bg-gradient-to-t from-black/30 to-transparent' />
+			<div className="absolute right-0 bottom-0 left-0 h-2 rounded-b-sm bg-gradient-to-t from-black/30 to-transparent" />
 
 			{/* Flipping indicator - subtle glow during animation */}
 			{isFlipping && (
-				<div className='absolute inset-0 animate-pulse rounded-sm bg-amber-400/5' />
+				<div className="absolute inset-0 animate-pulse rounded-sm bg-amber-400/5" />
 			)}
 		</div>
 	);
