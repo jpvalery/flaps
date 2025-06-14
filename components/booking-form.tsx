@@ -141,9 +141,11 @@ export default function BookingForm({ flight, onBack }: BookingFormProps) {
 			{/* Form */}
 			<form onSubmit={handleSubmit} className="space-y-6">
 				<div>
-					<label className="mb-2 block font-semibold text-amber-300">
-						<User className="mr-2 inline h-4 w-4" />
-						Full Name
+					<label className="flex flex-col gap-2 font-semibold text-amber-300">
+						<div className="flex items-center gap-2">
+							<User className="size-4" />
+							Full Name
+						</div>
 						<input
 							type="text"
 							name="name"
@@ -157,9 +159,11 @@ export default function BookingForm({ flight, onBack }: BookingFormProps) {
 				</div>
 
 				<div>
-					<label className="mb-2 block font-semibold text-amber-300">
-						<Mail className="mr-2 inline h-4 w-4" />
-						Email Address
+					<label className="flex flex-col gap-2 font-semibold text-amber-300">
+						<div className="flex items-center gap-2">
+							<Mail className="size-4" />
+							Email Address
+						</div>
 						<input
 							type="email"
 							name="email"
@@ -173,9 +177,11 @@ export default function BookingForm({ flight, onBack }: BookingFormProps) {
 				</div>
 
 				<div>
-					<label className="mb-2 block font-semibold text-amber-300">
-						<Users className="mr-2 inline h-4 w-4" />
-						Number of Seats
+					<label className="flex flex-col gap-2 font-semibold text-amber-300">
+						<div className="flex items-center gap-2">
+							<Users className="size-4" />
+							Number of Seats
+						</div>
 						<select
 							name="seats"
 							value={formData.seats}
