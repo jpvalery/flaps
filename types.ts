@@ -21,6 +21,7 @@ export type Booking = {
 
 export type EmailData = {
 	to: string;
+	id: string;
 	subject: string;
 	html: string;
 };

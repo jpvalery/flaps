@@ -1,20 +1,21 @@
 import type { Booking, EmailData } from '@/types';
 
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 export async function sendEmail(data: EmailData): Promise<boolean> {
+  
 	try {
-		// Simulate email sending delay
-		await new Promise((resolve) => setTimeout(resolve, 1000));
-
-		// In a real application, you would use a service like:
-		// - Resend
-		// - SendGrid
-		// - AWS SES
-		// - Nodemailer with SMTP
-
-		console.log('📧 Email sent simulation:');
-		console.log(`To: ${data.to}`);
-		console.log(`Subject: ${data.subject}`);
-		console.log(`HTML: ${data.html}`);
+    const sendEmail = await resend.emails.send({
+      from: 'Jp <mail@flaps.jpvalery.me>',
+      to: [`${data.to}`],
+      replyTo: process.env.JP_PERSONAL_EMAIL,
+      subject: `Confirm your booking`,
+      html: `HTML: ${data.html}`,
+    });
+    
+    console.log(sendEmail?.data?.id)
 
 		return true;
 	} catch (error) {
@@ -46,6 +47,7 @@ export function generateConfirmationEmail(booking: Booking): EmailData {
 
 	return {
 		to: booking.name.split(' ')[0], // Just first name for email
+    id: booking.id,
 		subject: `Confirm Your Flight Booking - ${booking?.flight?.departure} to ${booking?.flight?.destination}`,
 		html: `
       <!DOCTYPE html>
