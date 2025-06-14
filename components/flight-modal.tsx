@@ -1,6 +1,14 @@
 'use client';
 
-import { AlertCircle, Clock, Map, Plane, TicketsPlane, Users, X } from 'lucide-react';
+import {
+	AlertCircle,
+	Clock,
+	Plane,
+	Route,
+	TicketsPlane,
+	Users,
+	X,
+} from 'lucide-react';
 import { useState } from 'react';
 import BookingForm from './booking-form';
 
@@ -51,7 +59,7 @@ export default function FlightModal({
 				{/* Header */}
 				<div className="flex items-center justify-between border-amber-600/30 border-b p-6">
 					<div className="flex items-center space-x-3 text-amber-400">
-						<TicketsPlane className="size-8 -mt-1" />
+						<TicketsPlane className='-mt-1 size-8' />
 						<h2 className="font-bold text-2xl">Flight Details</h2>
 					</div>
 					<button
@@ -79,7 +87,7 @@ export default function FlightModal({
 								<div className="space-y-4">
 									<div>
 										<h3 className="flex items-center gap-2 font-semibold text-amber-300">
-											<Map className="size-4" />
+											<Route className="size-4" />
 											Route
 										</h3>
 										<p className="text-lg text-white">
