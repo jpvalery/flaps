@@ -1,10 +1,14 @@
 'use server';
 
-import { createBooking } from '@/lib/bookings';
 import { generateConfirmationEmail, sendEmail } from '@/lib/email';
 import { revalidatePath } from 'next/cache';
 
 import type { Booking } from '@/types';
+
+const apiUrl =
+	process.env.NODE_ENV !== 'production'
+		? `http://${process.env.VERCEL_URL}`
+		: `https://${process.env.VERCEL_URL}`;
 
 export async function reserveFlight(formData: FormData) {
 	const flightId = formData.get('flightId') as string;
@@ -17,12 +21,20 @@ export async function reserveFlight(formData: FormData) {
 
 	try {
 		// Create booking reservation
-		const booking = await createBooking({
-			name,
-			email,
-			seats,
-			flightId,
+		const createCall = await fetch(`${apiUrl}/api/booking/create`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				name,
+				email,
+				seats,
+				flightId,
+			}),
 		});
+
+		const booking = await createCall.json();
 
 		if (!booking) {
 			return {
@@ -35,6 +47,7 @@ export async function reserveFlight(formData: FormData) {
 		const emailData = generateConfirmationEmail(booking as Booking);
 		const emailSent = await sendEmail({
 			to: email,
+			id: flightId,
 			subject: emailData.subject,
 			html: emailData.html,
 		});

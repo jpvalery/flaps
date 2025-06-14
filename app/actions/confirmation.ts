@@ -1,11 +1,19 @@
 'use server';
 
-import { confirmBooking, cancelBooking } from '@/lib/bookings';
 import { revalidatePath } from 'next/cache';
+
+const apiUrl =
+	process.env.NODE_ENV !== 'production'
+		? `http://${process.env.VERCEL_URL}`
+		: `https://${process.env.VERCEL_URL}`;
 
 export async function confirmBookingAction(bookingId: string) {
 	try {
-		const success = await confirmBooking(bookingId);
+		const createCall = await fetch(`${apiUrl}/api/booking/confirm/${bookingId}`, {
+			method: 'POST',
+		});
+
+		const success = await createCall.json();
 
 		if (!success) {
 			return {
@@ -35,7 +43,11 @@ export async function confirmBookingAction(bookingId: string) {
 
 export async function cancelBookingAction(bookingId: string) {
 	try {
-		const success = await cancelBooking(bookingId);
+		const createCall = await fetch(`${apiUrl}/api/booking/cancel/${bookingId}`, {
+			method: 'DELETE',
+		});
+
+		const success = await createCall.json();
 
 		if (!success) {
 			return {
