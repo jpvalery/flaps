@@ -1,6 +1,6 @@
+import ConfirmationPage from '@/components/confirmation-page';
 import { getBookingById } from '@/lib/bookings';
 import { notFound } from 'next/navigation';
-import ConfirmationPage from '@/components/confirmation-page';
 
 interface PageProps {
 	params: {
@@ -9,7 +9,8 @@ interface PageProps {
 }
 
 export default async function BookingConfirmationPage({ params }: PageProps) {
-	const booking = await getBookingById(params.id);
+	const { id } = await params
+	const booking = await getBookingById(id);
 
 	if (!booking) {
 		notFound();
