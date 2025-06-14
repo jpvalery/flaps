@@ -4,6 +4,7 @@ import {
 	cancelBookingAction,
 	confirmBookingAction,
 } from '@/app/actions/confirmation';
+import Header from '@/components/ui/header';
 import {
 	AlertCircle,
 	CheckCircle,
@@ -108,18 +109,7 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 	return (
 		<div className="min-h-screen bg-zinc-950 text-amber-400">
 			{/* Header */}
-			<header className="border-amber-600/30 border-b bg-zinc-900 py-6">
-				<div className="container mx-auto px-4">
-					<div className="text-center">
-						<h1 className="mb-2 font-bold text-4xl tracking-wider md:text-6xl">
-							BOOKING CONFIRMATION
-						</h1>
-						<p className="text-amber-300/80 text-lg tracking-widest">
-							FLIGHT RESERVATION SYSTEM
-						</p>
-					</div>
-				</div>
-			</header>
+			<Header title="BOOKING CONFIRMATION" subtitle="FLIGHT RESERVATION SYSTEM" />
 
 			{/* Main Content */}
 			<main className="container mx-auto px-4 py-8">

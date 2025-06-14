@@ -1,7 +1,8 @@
 'use client';
 
 import FlightModal from '@/components/flight-modal';
-import SplitFlapBoard from '@/components/split-flap-board';
+import SplitFlapBoard from '@/components/split-flap/split-flap-board';
+import Header from '@/components/ui/header';
 import { useEffect, useState } from 'react';
 
 interface Flight {
@@ -63,15 +64,7 @@ export default function Home() {
 	return (
 		<div className="min-h-screen bg-zinc-950 text-amber-400">
 			{/* Header */}
-			<header className="border-amber-700/40 border-b bg-zinc-900 py-6">
-				<div className="container mx-auto px-4">
-					<div className="text-center">
-						<h1 className="mb-2 font-bold text-4xl tracking-wider md:text-6xl">
-							NEXT DEPARTURES
-						</h1>
-					</div>
-				</div>
-			</header>
+			<Header title="NEXT DEPARTURES" subtitle='' />
 
 			{/* Main Content */}
 			<main className="container mx-auto px-4 py-8">

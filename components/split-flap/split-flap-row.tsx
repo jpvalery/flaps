@@ -1,8 +1,8 @@
 'use client';
 
+import SplitFlapCharacter from '@/components/split-flap/split-flap-character';
+import InteractiveWrapper from '@/components/ui/interactive-wrapper';
 import { useEffect, useState } from 'react';
-import InteractiveWrapper from './interactive-wrapper';
-import SplitFlapCharacter from './split-flap-character';
 
 interface Flight {
 	id: string;
