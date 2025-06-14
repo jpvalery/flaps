@@ -13,6 +13,7 @@ import {
 	Users,
 	XCircle,
 } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 
 interface Booking {
@@ -228,13 +229,21 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 								</div>
 							) : (
 								<div className="mt-8 text-center">
-									<p className="text-zinc-400">
+									<p className="text-zinc-100">
 										{booking.status === 'CONFIRMED' &&
 											'Your booking has been confirmed. See you at the airport!'}
 										{booking.status === 'CANCELLED' && 'This booking has been cancelled.'}
 									</p>
 								</div>
 							)}
+							<div className="grid items-center">
+								<Link
+									href="/"
+									className="text-center text-amber-400 text-sm hover:text-amber-500"
+								>
+									Return to home
+								</Link>
+							</div>
 						</div>
 					</div>
 				</div>
