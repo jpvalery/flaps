@@ -2,6 +2,7 @@
 
 import FlightModal from '@/components/flight-modal';
 import SplitFlapBoard from '@/components/split-flap/split-flap-board';
+import SubscribeForm from '@/components/subscribe-form';
 import Footer from '@/components/ui/footer';
 import Header from '@/components/ui/header';
 import { useEffect, useState } from 'react';
@@ -68,7 +69,7 @@ export default function Home() {
 			<Header title="NEXT DEPARTURES" subtitle="" />
 
 			{/* Main Content */}
-			<main className="container mx-auto flex-grow px-4 py-8">
+			<main className='container mx-auto grid min-h-[75dvh] grid-flow-row gap-8 px-4 py-8'>
 				<div className="mx-auto max-w-6xl">
 					{/* Board Header */}
 					<section className="hidden lg:inline">
@@ -91,6 +92,7 @@ export default function Home() {
 						)}
 					</div>
 				</div>
+				<SubscribeForm />
 			</main>
 
 			{/* Flight Modal */}
