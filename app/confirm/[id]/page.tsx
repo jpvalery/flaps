@@ -9,7 +9,7 @@ interface PageProps {
 }
 
 export default async function BookingConfirmationPage({ params }: PageProps) {
-	const { id } = await params
+	const { id } = await params;
 	const booking = await getBookingById(id);
 
 	if (!booking) {

@@ -128,15 +128,13 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 						{/* Status Header */}
 						<div className="bg-zinc-800 p-6 border-b border-amber-600/30">
 							<div className="grid grid-flow-row gap-3 justify-center items-center">
-								
 								<div className="flex items-center gap-2 justify-center">
-								{getStatusIcon()}
+									{getStatusIcon()}
 									<h2 className={`text-3xl font-bold ${getStatusColor()}`}>
 										{booking.status === 'RESERVED' && 'Booking Reserved'}
 										{booking.status === 'CONFIRMED' && 'Booking Confirmed'}
 										{booking.status === 'CANCELLED' && 'Booking Cancelled'}
 									</h2>
-									
 								</div>
 								<p className="text-zinc-300 mt-1 font-mono text-sm">#{booking.id}</p>
 							</div>

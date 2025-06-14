@@ -154,19 +154,25 @@ export default function SplitFlapRow({
 
 				{/* Availability - just number, moved to right */}
 				<div className="col-span-1 flex justify-center gap-1">
-				{ spotsText == "0" ? <span className="text-amber-400 animate-pulse">COMPLETE</span> : <>					{spotsText.split('').map((char, index) => (
-						<SplitFlapCharacter
-							key={index}
-							character={char}
-							delay={
-								isVisible
-									? (flight.departure.length + flight.destination.length + 8) * 60 +
-										index * 50
-									: 0
-							}
-						/>
-					))}</>}
-
+					{spotsText == '0' ? (
+						<span className="text-amber-400 animate-pulse">COMPLETE</span>
+					) : (
+						<>
+							{' '}
+							{spotsText.split('').map((char, index) => (
+								<SplitFlapCharacter
+									key={index}
+									character={char}
+									delay={
+										isVisible
+											? (flight.departure.length + flight.destination.length + 8) * 60 +
+												index * 50
+											: 0
+									}
+								/>
+							))}
+						</>
+					)}
 				</div>
 			</div>
 		</div>

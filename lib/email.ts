@@ -5,17 +5,16 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendEmail(data: EmailData): Promise<boolean> {
-  
 	try {
-    const sendEmail = await resend.emails.send({
-      from: 'Jp <mail@flaps.jpvalery.me>',
-      to: [`${data.to}`],
-      replyTo: process.env.JP_PERSONAL_EMAIL,
-      subject: `Confirm your booking`,
-      html: `HTML: ${data.html}`,
-    });
-    
-    console.log(sendEmail?.data?.id)
+		const sendEmail = await resend.emails.send({
+			from: 'Jp <mail@flaps.jpvalery.me>',
+			to: [`${data.to}`],
+			replyTo: process.env.JP_PERSONAL_EMAIL,
+			subject: `Confirm your booking`,
+			html: `HTML: ${data.html}`,
+		});
+
+		console.log(sendEmail?.data?.id);
 
 		return true;
 	} catch (error) {
@@ -47,7 +46,7 @@ export function generateConfirmationEmail(booking: Booking): EmailData {
 
 	return {
 		to: booking.name.split(' ')[0], // Just first name for email
-    id: booking.id,
+		id: booking.id,
 		subject: `Confirm Your Flight Booking - ${booking?.flight?.departure} to ${booking?.flight?.destination}`,
 		html: `
       <!DOCTYPE html>
