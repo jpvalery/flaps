@@ -64,7 +64,7 @@ export default function Home() {
 	return (
 		<div className="min-h-screen bg-zinc-950 text-amber-400">
 			{/* Header */}
-			<Header title="NEXT DEPARTURES" subtitle='' />
+			<Header title="NEXT DEPARTURES" subtitle="" />
 
 			{/* Main Content */}
 			<main className="container mx-auto px-4 py-8">

@@ -50,7 +50,7 @@ export default function SplitFlapRow({
 						<SplitFlapCharacter
 							key={index}
 							character={char}
-							delay={isVisible ? index * 100 : 0}
+							delay={isVisible ? (index + 1) * 100 : 0}
 						/>
 					))}
 				</div>
