@@ -25,3 +25,12 @@ export type EmailData = {
 	subject: string;
 	html: string;
 };
+
+export type CreateFlightPayload = {
+	departure: string;
+	destination: string;
+	datetime: string; // ISO string
+	spotsLeft: number;
+	aircraft: string;
+	notes?: string;
+};

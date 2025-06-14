@@ -1,6 +1,6 @@
 import { prisma } from './prisma';
 
-import type { Flight } from '@/types';
+import type { CreateFlightPayload, Flight } from '@/types';
 
 export async function getFlights(): Promise<Flight[]> {
 	try {
@@ -74,5 +74,33 @@ export async function updateFlightSpots(
 	} catch (error) {
 		console.error('Error updating flight spots:', error);
 		return false;
+	}
+}
+
+export async function createFlight(payload: CreateFlightPayload) {
+	try {
+		const newFlight = await prisma.flight.create({
+			data: {
+				departure: payload.departure,
+				destination: payload.destination,
+				datetime: new Date(payload.datetime),
+				spotsLeft: Number(payload.spotsLeft),
+				aircraft: payload.aircraft,
+				notes: payload.notes || '',
+			},
+		});
+
+		return {
+			id: newFlight.id,
+			departure: newFlight.departure,
+			destination: newFlight.destination,
+			datetime: newFlight.datetime.toISOString(),
+			spotsLeft: newFlight.spotsLeft,
+			aircraft: newFlight.aircraft,
+			notes: newFlight.notes || '',
+		};
+	} catch (error) {
+		console.error('Error creating flight:', error);
+		throw new Error('Flight creation failed');
 	}
 }

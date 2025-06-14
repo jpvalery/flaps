@@ -59,7 +59,7 @@ export default function FlightModal({
 				{/* Header */}
 				<div className="flex items-center justify-between border-amber-600/30 border-b p-6">
 					<div className="flex items-center space-x-3 text-amber-400">
-						<TicketsPlane className='-mt-1 size-8' />
+						<TicketsPlane className="-mt-1 size-8" />
 						<h2 className="font-bold text-2xl">Flight Details</h2>
 					</div>
 					<button
