@@ -1,128 +1,173 @@
-"use client"
+'use client';
 
-import { useEffect, useState } from "react"
-import SplitFlapCharacter from "./split-flap-character"
+import { useEffect, useState } from 'react';
+import SplitFlapCharacter from './split-flap-character';
 
 interface Flight {
-  id: string
-  departure: string
-  destination: string
-  datetime: string
-  spotsLeft: number
-  aircraft: string
-  notes: string
+	id: string;
+	departure: string;
+	destination: string;
+	datetime: string;
+	spotsLeft: number;
+	aircraft: string;
+	notes: string;
 }
 
 interface SplitFlapRowProps {
-  flight: Flight
-  onClick: () => void
-  delay: number
+	flight: Flight;
+	onClick: () => void;
+	delay: number;
 }
 
-export default function SplitFlapRow({ flight, onClick, delay }: SplitFlapRowProps) {
-  const [isVisible, setIsVisible] = useState(false)
+export default function SplitFlapRow({
+	flight,
+	onClick,
+	delay,
+}: SplitFlapRowProps) {
+	const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), delay)
-    return () => clearTimeout(timer)
-  }, [delay])
+	useEffect(() => {
+		const timer = setTimeout(() => setIsVisible(true), delay);
+		return () => clearTimeout(timer);
+	}, [delay]);
 
-  // Format datetime to DDMM HHMM (no separators)
-  const date = new Date(flight.datetime)
+	// Format datetime to DDMM HHMM (no separators)
+	const date = new Date(flight.datetime);
 
-  // Format spots left
-  const spotsText = flight.spotsLeft.toString()
+	// Format spots left
+	const spotsText = flight.spotsLeft.toString();
 
-  return (
-    <div
-      className="border-b border-amber-600/20 last:border-b-0 hover:bg-zinc-800/50 cursor-pointer transition-colors duration-200"
-      onClick={onClick}
-    >
-      <div className="grid grid-cols-12 gap-2 p-4 items-center">
-        {/* Departure - 4 chars, fixed width */}
-        <div className="col-span-2 flex space-x-1">
-          {flight.departure.split("").map((char, index) => (
-            <SplitFlapCharacter key={index} character={char} delay={isVisible ? index * 100 : 0} />
-          ))}
-        </div>
+	return (
+		<div
+			className="border-b border-amber-600/20 last:border-b-0 hover:bg-zinc-800/50 cursor-pointer transition-colors duration-200"
+			onClick={onClick}
+		>
+			<div className="grid grid-cols-12 gap-2 p-4 items-center">
+				{/* Departure - 4 chars, fixed width */}
+				<div className="col-span-2 flex space-x-1">
+					{flight.departure.split('').map((char, index) => (
+						<SplitFlapCharacter
+							key={index}
+							character={char}
+							delay={isVisible ? index * 100 : 0}
+						/>
+					))}
+				</div>
 
-        {/* Destination - flexible */}
-        <div className="col-span-5 flex flex-wrap gap-1">
-          {flight.destination
-            .toUpperCase()
-            .split("")
-            .map((char, index) => (
-              <SplitFlapCharacter
-                key={index}
-                character={char === " " ? " " : char}
-                delay={isVisible ? flight.departure.length * 100 + index * 80 : 0}
-              />
-            ))}
-        </div>
+				{/* Destination - flexible */}
+				<div className="col-span-5 flex flex-wrap gap-1">
+					{flight.destination
+						.toUpperCase()
+						.split('')
+						.map((char, index) => (
+							<SplitFlapCharacter
+								key={index}
+								character={char === ' ' ? ' ' : char}
+								delay={isVisible ? flight.departure.length * 100 + index * 80 : 0}
+							/>
+						))}
+				</div>
 
-        {/* Schedule - DD/MM HH:MM with mixed flaps and text */}
-        <div className="col-span-4 flex items-center gap-1">
-          {/* Day flaps */}
-          <SplitFlapCharacter
-            character={date.getDate().toString().padStart(2, "0")[0]}
-            delay={isVisible ? (flight.departure.length + flight.destination.length) * 80 + 0 * 60 : 0}
-          />
-          <SplitFlapCharacter
-            character={date.getDate().toString().padStart(2, "0")[1]}
-            delay={isVisible ? (flight.departure.length + flight.destination.length) * 80 + 1 * 60 : 0}
-          />
+				{/* Schedule - DD/MM HH:MM with mixed flaps and text */}
+				<div className="col-span-4 flex items-center gap-1">
+					{/* Day flaps */}
+					<SplitFlapCharacter
+						character={date.getDate().toString().padStart(2, '0')[0]}
+						delay={
+							isVisible
+								? (flight.departure.length + flight.destination.length) * 80 + 0 * 60
+								: 0
+						}
+					/>
+					<SplitFlapCharacter
+						character={date.getDate().toString().padStart(2, '0')[1]}
+						delay={
+							isVisible
+								? (flight.departure.length + flight.destination.length) * 80 + 1 * 60
+								: 0
+						}
+					/>
 
-          {/* Separator */}
-          <span className="text-amber-400 font-mono text-lg">/</span>
+					{/* Separator */}
+					<span className="text-amber-400 font-mono text-lg">/</span>
 
-          {/* Month flaps */}
-          <SplitFlapCharacter
-            character={(date.getMonth() + 1).toString().padStart(2, "0")[0]}
-            delay={isVisible ? (flight.departure.length + flight.destination.length) * 80 + 2 * 60 : 0}
-          />
-          <SplitFlapCharacter
-            character={(date.getMonth() + 1).toString().padStart(2, "0")[1]}
-            delay={isVisible ? (flight.departure.length + flight.destination.length) * 80 + 3 * 60 : 0}
-          />
+					{/* Month flaps */}
+					<SplitFlapCharacter
+						character={(date.getMonth() + 1).toString().padStart(2, '0')[0]}
+						delay={
+							isVisible
+								? (flight.departure.length + flight.destination.length) * 80 + 2 * 60
+								: 0
+						}
+					/>
+					<SplitFlapCharacter
+						character={(date.getMonth() + 1).toString().padStart(2, '0')[1]}
+						delay={
+							isVisible
+								? (flight.departure.length + flight.destination.length) * 80 + 3 * 60
+								: 0
+						}
+					/>
 
-          {/* Space */}
-          <div className="w-2"></div>
+					{/* Space */}
+					<div className="w-2"></div>
 
-          {/* Hour flaps */}
-          <SplitFlapCharacter
-            character={date.getHours().toString().padStart(2, "0")[0]}
-            delay={isVisible ? (flight.departure.length + flight.destination.length) * 80 + 4 * 60 : 0}
-          />
-          <SplitFlapCharacter
-            character={date.getHours().toString().padStart(2, "0")[1]}
-            delay={isVisible ? (flight.departure.length + flight.destination.length) * 80 + 5 * 60 : 0}
-          />
+					{/* Hour flaps */}
+					<SplitFlapCharacter
+						character={date.getHours().toString().padStart(2, '0')[0]}
+						delay={
+							isVisible
+								? (flight.departure.length + flight.destination.length) * 80 + 4 * 60
+								: 0
+						}
+					/>
+					<SplitFlapCharacter
+						character={date.getHours().toString().padStart(2, '0')[1]}
+						delay={
+							isVisible
+								? (flight.departure.length + flight.destination.length) * 80 + 5 * 60
+								: 0
+						}
+					/>
 
-          {/* Separator */}
-          <span className="text-amber-400 font-mono text-lg">:</span>
+					{/* Separator */}
+					<span className="text-amber-400 font-mono text-lg">:</span>
 
-          {/* Minute flaps */}
-          <SplitFlapCharacter
-            character={date.getMinutes().toString().padStart(2, "0")[0]}
-            delay={isVisible ? (flight.departure.length + flight.destination.length) * 80 + 6 * 60 : 0}
-          />
-          <SplitFlapCharacter
-            character={date.getMinutes().toString().padStart(2, "0")[1]}
-            delay={isVisible ? (flight.departure.length + flight.destination.length) * 80 + 7 * 60 : 0}
-          />
-        </div>
+					{/* Minute flaps */}
+					<SplitFlapCharacter
+						character={date.getMinutes().toString().padStart(2, '0')[0]}
+						delay={
+							isVisible
+								? (flight.departure.length + flight.destination.length) * 80 + 6 * 60
+								: 0
+						}
+					/>
+					<SplitFlapCharacter
+						character={date.getMinutes().toString().padStart(2, '0')[1]}
+						delay={
+							isVisible
+								? (flight.departure.length + flight.destination.length) * 80 + 7 * 60
+								: 0
+						}
+					/>
+				</div>
 
-        {/* Availability - just number, moved to right */}
-        <div className="col-span-1 flex justify-center gap-1">
-          {spotsText.split("").map((char, index) => (
-            <SplitFlapCharacter
-              key={index}
-              character={char}
-              delay={isVisible ? (flight.departure.length + flight.destination.length + 8) * 60 + index * 50 : 0}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  )
+				{/* Availability - just number, moved to right */}
+				<div className="col-span-1 flex justify-center gap-1">
+					{spotsText.split('').map((char, index) => (
+						<SplitFlapCharacter
+							key={index}
+							character={char}
+							delay={
+								isVisible
+									? (flight.departure.length + flight.destination.length + 8) * 60 +
+										index * 50
+									: 0
+							}
+						/>
+					))}
+				</div>
+			</div>
+		</div>
+	);
 }

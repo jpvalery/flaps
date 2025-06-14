@@ -1,60 +1,53 @@
-export interface EmailData {
-  to: string
-  subject: string
-  html: string
-}
+import type { Booking, EmailData } from '@/types';
 
 export async function sendEmail(data: EmailData): Promise<boolean> {
-  try {
-    // Simulate email sending delay
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+	try {
+		// Simulate email sending delay
+		await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // In a real application, you would use a service like:
-    // - Resend
-    // - SendGrid
-    // - AWS SES
-    // - Nodemailer with SMTP
+		// In a real application, you would use a service like:
+		// - Resend
+		// - SendGrid
+		// - AWS SES
+		// - Nodemailer with SMTP
 
-    console.log("📧 Email sent simulation:")
-    console.log(`To: ${data.to}`)
-    console.log(`Subject: ${data.subject}`)
-    console.log(`HTML: ${data.html}`)
+		console.log('📧 Email sent simulation:');
+		console.log(`To: ${data.to}`);
+		console.log(`Subject: ${data.subject}`);
+		console.log(`HTML: ${data.html}`);
 
-    return true
-  } catch (error) {
-    console.error("Error sending email:", error)
-    return false
-  }
+		return true;
+	} catch (error) {
+		console.error('Error sending email:', error);
+		return false;
+	}
 }
 
-export function generateConfirmationEmail(booking: {
-  id: string
-  name: string
-  seats: number
-  flight: {
-    departure: string
-    destination: string
-    datetime: string
-    aircraft: string
-  }
-}): EmailData {
-  const confirmationUrl = `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/confirm/${booking.id}`
-  const flightDate = new Date(booking.flight.datetime).toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  })
-  const flightTime = new Date(booking.flight.datetime).toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  })
+export function generateConfirmationEmail(booking: Booking): EmailData {
+	const confirmationUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/confirm/${booking.id}`;
 
-  return {
-    to: booking.name.split(" ")[0], // Just first name for email
-    subject: `Confirm Your Flight Booking - ${booking.flight.departure} to ${booking.flight.destination}`,
-    html: `
+	let flightDate = 'N/A';
+	let flightTime = 'N/A';
+
+	if (booking.flight?.datetime) {
+		const date = new Date(booking.flight.datetime);
+		flightDate = date.toLocaleDateString('en-US', {
+			weekday: 'long',
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric',
+		});
+		flightTime = date.toLocaleTimeString('en-US', {
+			hour: '2-digit',
+			minute: '2-digit',
+			hour12: false,
+		});
+	}
+
+	return {
+		to: booking.name.split(' ')[0], // Just first name for email
+		subject: `Confirm Your Flight Booking - ${booking?.flight?.departure} to ${booking?.flight?.destination}`,
+		html: `
       <!DOCTYPE html>
       <html>
         <head>
@@ -90,10 +83,10 @@ export function generateConfirmationEmail(booking: {
               
               <div class="flight-details">
                 <h3>Flight Details</h3>
-                <p><strong>Route:</strong> ${booking.flight.departure} → ${booking.flight.destination}</p>
+                <p><strong>Route:</strong> ${booking?.flight?.departure} → ${booking?.flight?.destination}</p>
                 <p><strong>Date:</strong> ${flightDate}</p>
                 <p><strong>Time:</strong> ${flightTime}</p>
-                <p><strong>Aircraft:</strong> ${booking.flight.aircraft}</p>
+                <p><strong>Aircraft:</strong> ${booking?.flight?.aircraft}</p>
                 <p><strong>Seats:</strong> ${booking.seats}</p>
               </div>
 
@@ -113,5 +106,5 @@ export function generateConfirmationEmail(booking: {
         </body>
       </html>
     `,
-  }
+	};
 }
