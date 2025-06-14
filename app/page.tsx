@@ -2,6 +2,7 @@
 
 import FlightModal from '@/components/flight-modal';
 import SplitFlapBoard from '@/components/split-flap/split-flap-board';
+import Footer from '@/components/ui/footer';
 import Header from '@/components/ui/header';
 import { useEffect, useState } from 'react';
 
@@ -62,12 +63,12 @@ export default function Home() {
 	}
 
 	return (
-		<div className="min-h-screen bg-zinc-950 text-amber-400">
+		<div className="flex min-h-screen flex-col bg-zinc-950 text-amber-400">
 			{/* Header */}
 			<Header title="NEXT DEPARTURES" subtitle="" />
 
 			{/* Main Content */}
-			<main className="container mx-auto px-4 py-8">
+			<main className="container mx-auto flex-grow px-4 py-8">
 				<div className="mx-auto max-w-6xl">
 					{/* Board Header */}
 					<section className="hidden lg:inline">
@@ -100,6 +101,9 @@ export default function Home() {
 					onBookingComplete={refreshFlights}
 				/>
 			)}
+
+			{/* Footer */}
+			<Footer />
 		</div>
 	);
 }
