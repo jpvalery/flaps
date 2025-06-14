@@ -1,10 +1,9 @@
 'use client';
 
-import type React from 'react';
-
-import { useState } from 'react';
-import { ArrowLeft, User, Mail, Users } from 'lucide-react';
 import { reserveFlight } from '@/app/actions/booking';
+import { ArrowLeft, Mail, User, Users } from 'lucide-react';
+import type React from 'react';
+import { useState } from 'react';
 
 interface Flight {
 	id: string;
@@ -35,7 +34,6 @@ export default function BookingForm({
 		seats: 1,
 	});
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [isSubmitted, setIsSubmitted] = useState(false);
 	const [bookingResult, setBookingResult] = useState<{
 		success: boolean;
 		message: string;
@@ -56,11 +54,13 @@ export default function BookingForm({
 
 		setBookingResult(result);
 		setIsSubmitting(false);
-		setIsSubmitted(true);
 
-		if (result.success) {
-			onBookingComplete?.();
-		}
+		/*if (result.success) {
+			// Delay onBookingComplete to allow time for user to see confirmation
+			setTimeout(() => {
+				onBookingComplete?.();
+			}, 3000);
+		}*/
 	};
 
 	const handleInputChange = (
@@ -73,7 +73,7 @@ export default function BookingForm({
 		}));
 	};
 
-	if (isSubmitted && bookingResult) {
+	if (bookingResult) {
 		return (
 			<div className="text-center py-8">
 				<div
@@ -122,12 +122,6 @@ export default function BookingForm({
 						</>
 					)}
 				</p>
-				<button
-					onClick={onClose}
-					className="bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 px-8 rounded transition-colors"
-				>
-					Close
-				</button>
 			</div>
 		);
 	}

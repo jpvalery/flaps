@@ -1,7 +1,7 @@
 'use client';
 
+import { AlertCircle, Clock, Plane, Users, X } from 'lucide-react';
 import { useState } from 'react';
-import { X, Plane, Clock, Users, AlertCircle } from 'lucide-react';
 import BookingForm from './booking-form';
 
 interface Flight {
