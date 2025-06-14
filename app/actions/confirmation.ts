@@ -2,14 +2,9 @@
 
 import { revalidatePath } from 'next/cache';
 
-const apiUrl =
-	process.env.NODE_ENV !== 'production'
-		? `http://${process.env.VERCEL_URL}`
-		: `https://${process.env.VERCEL_URL}`;
-
 export async function confirmBookingAction(bookingId: string) {
 	try {
-		const createCall = await fetch(`${apiUrl}/api/booking/confirm/${bookingId}`, {
+		const createCall = await fetch(`${process.env.WWW}/api/booking/confirm/${bookingId}`, {
 			method: 'POST',
 		});
 
@@ -43,7 +38,7 @@ export async function confirmBookingAction(bookingId: string) {
 
 export async function cancelBookingAction(bookingId: string) {
 	try {
-		const createCall = await fetch(`${apiUrl}/api/booking/cancel/${bookingId}`, {
+		const createCall = await fetch(`${process.env.WWW}/api/booking/cancel/${bookingId}`, {
 			method: 'DELETE',
 		});
 

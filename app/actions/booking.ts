@@ -5,23 +5,15 @@ import { revalidatePath } from 'next/cache';
 
 import type { Booking } from '@/types';
 
-const apiUrl =
-	process.env.NODE_ENV !== 'production'
-		? `http://${process.env.VERCEL_URL}`
-		: `https://${process.env.VERCEL_URL}`;
-
 export async function reserveFlight(formData: FormData) {
 	const flightId = formData.get('flightId') as string;
 	const name = formData.get('name') as string;
 	const email = formData.get('email') as string;
 	const seats = Number.parseInt(formData.get('seats') as string);
 
-	// Simulate processing time
-	await new Promise((resolve) => setTimeout(resolve, 1500));
-
 	try {
 		// Create booking reservation
-		const createCall = await fetch(`${apiUrl}/api/booking/create`, {
+		const createCall = await fetch(`${process.env.WWW}/api/booking/create`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
