@@ -71,9 +71,6 @@ export default function SplitFlapCharacter({
 		performFlip(0);
 	};
 
-	if (character === ' ') {
-		return <div className="w-3" />;
-	}
 
 	return (
 		<div className="relative">

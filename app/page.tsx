@@ -70,7 +70,7 @@ export default function Home() {
 
 			{/* Main Content */}
 			<main className="container mx-auto grid min-h-[75dvh] grid-flow-row gap-8 px-4 py-8">
-				<div className="mx-auto max-w-6xl">
+				<div className="mx-auto w-full">
 					{/* Board Header */}
 					<section className="hidden lg:inline">
 						<div className="rounded-t-lg border border-amber-700/40 bg-zinc-900 p-4">
