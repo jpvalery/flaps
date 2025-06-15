@@ -2,7 +2,7 @@
 
 import type { Booking } from '@/types';
 
-import { generateConfirmationEmail, sendEmail } from '@/lib/email';
+import { generateBookingConfirmedEmail, sendEmail } from '@/lib/email';
 
 import { revalidatePath } from 'next/cache';
 
@@ -32,13 +32,14 @@ export async function confirmBookingAction(bookingId: string) {
 				method: 'GET',
 			}
 		);
-		const booking = await fetchBooking.json()
-		const emailData = generateConfirmationEmail(booking as Booking);
+		const booking = await fetchBooking.json();
+		const emailData = generateBookingConfirmedEmail(booking as Booking);
 		const emailSent = await sendEmail({
 			to: booking.email,
 			id: booking.flightId,
 			subject: emailData.subject,
-			html: emailData.html,
+			// biome-ignore lint/style/noNonNullAssertion: "OK"
+			react: emailData.react!,
 		});
 
 		if (!emailSent) {
@@ -59,40 +60,6 @@ export async function confirmBookingAction(bookingId: string) {
 			success: false,
 			message:
 				'An error occurred while confirming your booking. Please try again.',
-		};
-	}
-}
-
-export async function cancelBookingAction(bookingId: string) {
-	try {
-		const createCall = await fetch(
-			`${process.env.WWW}/api/booking/cancel/${bookingId}`,
-			{
-				method: 'DELETE',
-			}
-		);
-
-		const success = await createCall.json();
-
-		if (!success) {
-			return {
-				success: false,
-				message: 'Unable to cancel booking.',
-			};
-		}
-
-		revalidatePath('/');
-		revalidatePath(`/confirm/${bookingId}`);
-
-		return {
-			success: true,
-			message: 'Booking cancelled successfully.',
-		};
-	} catch (error) {
-		console.error('Cancellation error:', error);
-		return {
-			success: false,
-			message: 'An error occurred while cancelling your booking.',
 		};
 	}
 }

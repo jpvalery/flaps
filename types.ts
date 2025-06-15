@@ -1,4 +1,4 @@
-// types.ts
+import type { ReactElement } from 'react';
 
 export type Flight = {
 	id: string;
@@ -19,12 +19,21 @@ export type Booking = {
 	flight?: Flight; // used when retrieving a booking
 };
 
-export type EmailData = {
-	to: string;
-	id: string;
-	subject: string;
-	html: string;
-};
+export type EmailData =
+	| {
+			to: string;
+			id: string;
+			subject: string;
+			html: string;
+			react?: never;
+	  }
+	| {
+			to: string;
+			id: string;
+			subject: string;
+			html?: never;
+			react: ReactElement;
+	  };
 
 export type ContactData = {
 	email: string;

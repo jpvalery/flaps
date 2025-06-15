@@ -1,9 +1,7 @@
 'use client';
 
-import {
-	cancelBookingAction,
-	confirmBookingAction,
-} from '@/app/actions/confirmation';
+import { cancelBookingAction } from '@/app/actions/cancellation';
+import { confirmBookingAction } from '@/app/actions/confirmation';
 import Header from '@/components/ui/header';
 import {
 	AlertCircle,
@@ -201,11 +199,13 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 								</div>
 							) : booking.status === 'RESERVED' ? (
 								<div className="mt-8 space-y-4">
-									<div className="rounded border border-amber-600/30 bg-amber-600/10 p-4">
-										<p className="text-center text-amber-300">
+									<div className="grid grid-flow-row items-center justify-center rounded border border-amber-600/30 bg-amber-600/10 p-4">
+										<p className="flex items-center text-center text-amber-300">
 											<AlertCircle className="mr-2 inline size-5" />
-											Please confirm your booking to secure your seats. Your reservation
-											will expire in 24 hours.
+											Please confirm your booking to secure your seats.
+										</p>
+										<p className="text-center text-amber-300">
+											Your reservation will expire in 24 hours.
 										</p>
 									</div>
 									<div className="flex space-x-4">
@@ -228,22 +228,30 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 									</div>
 								</div>
 							) : (
-								<div className="mt-8 text-center">
+								<div className="mt-8 grid grid-flow-row items-center justify-center gap-4 text-center">
 									<p className="text-zinc-300">
 										{booking.status === 'CONFIRMED' &&
 											'Your booking has been confirmed. See you at the airport!'}
 										{booking.status === 'CANCELLED' && 'This booking has been cancelled.'}
 									</p>
+									{booking.status === 'CONFIRMED' && (
+										<button
+											type="button"
+											onClick={handleCancel}
+											disabled={isProcessing}
+											className="rounded border border-red-600/50 px-6 py-3 text-red-400 transition-colors hover:bg-red-600/10"
+										>
+											Cancel Booking
+										</button>
+									)}
+									<Link
+										href="/"
+										className="text-center text-amber-400 text-sm hover:text-amber-500"
+									>
+										Return to home
+									</Link>
 								</div>
 							)}
-							<div className="grid items-center">
-								<Link
-									href="/"
-									className="text-center text-amber-400 text-sm hover:text-amber-500"
-								>
-									Return to home
-								</Link>
-							</div>
 						</div>
 					</div>
 				</div>

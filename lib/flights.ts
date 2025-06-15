@@ -1,11 +1,13 @@
 import { prisma } from './prisma';
 
+import type { Booking } from '@/types';
+
 import {
 	cancelBookingsByFlightId,
 	getBookingsByFlightId,
 } from '@/lib/bookings';
-import { generateCancellationEmail, sendEmail } from '@/lib/email';
-import type { Booking, CreateFlightPayload, Flight } from '@/types';
+import { generateFlightCancellationEmail, sendBatchEmail } from '@/lib/email';
+import type { CreateFlightPayload, EmailData, Flight } from '@/types';
 
 export async function getFlights(): Promise<Flight[]> {
 	try {
@@ -127,26 +129,30 @@ export async function cancelFlight(flightId: string): Promise<boolean> {
 			throw new Error('Failed to cancel bookings');
 		}
 
-		// Send emails in parallel
-		await Promise.all(
-			bookings.map(async (booking) => {
-				const bookingForEmail = {
-					...booking,
-					flight: {
-						...booking.flight,
-						datetime: booking.flight.datetime.toISOString(),
-					},
-				};
+		// Send emails in batch
+		const emailDataList: EmailData[] = bookings.map((booking) => {
+			const bookingForEmail = {
+				...booking,
+				flight: {
+					...booking.flight,
+					datetime: booking.flight.datetime.toISOString(), // fix
+				},
+			};
 
-				const emailData = generateCancellationEmail(bookingForEmail as Booking);
-				await sendEmail({
-					to: booking.email,
-					id: flightId,
-					subject: emailData.subject,
-					html: emailData.html,
-				});
-			})
-		);
+			const emailData = generateFlightCancellationEmail(
+				bookingForEmail as Booking
+			);
+
+			return {
+				to: booking.email,
+				id: emailData.id,
+				subject: emailData.subject,
+				// biome-ignore lint/style/noNonNullAssertion: "OK"
+				react: emailData.react!,
+			};
+		});
+
+		await sendBatchEmail(emailDataList);
 
 		// Safely delete all related bookings and the flight in a transaction
 		await prisma.$transaction([

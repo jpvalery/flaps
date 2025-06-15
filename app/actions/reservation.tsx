@@ -1,6 +1,6 @@
 'use server';
 
-import { generateConfirmationEmail, sendEmail } from '@/lib/email';
+import { generateReservationEmail, sendEmail } from '@/lib/email';
 import { revalidatePath } from 'next/cache';
 
 import type { Booking } from '@/types';
@@ -36,12 +36,13 @@ export async function reserveFlight(formData: FormData) {
 		}
 
 		// Send confirmation email
-		const emailData = generateConfirmationEmail(booking as Booking);
+		const emailData = generateReservationEmail(booking as Booking);
 		const emailSent = await sendEmail({
 			to: email,
 			id: flightId,
 			subject: emailData.subject,
-			html: emailData.html,
+			// biome-ignore lint/style/noNonNullAssertion: "OK"
+			react: emailData.react!,
 		});
 
 		if (!emailSent) {

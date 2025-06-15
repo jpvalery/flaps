@@ -1,6 +1,6 @@
 'use client';
 
-import { reserveFlight } from '@/app/actions/booking';
+import { reserveFlight } from '@/app/actions/reservation';
 import { ArrowLeft, Check, Mail, User, Users, X } from 'lucide-react';
 import type React from 'react';
 import { useState } from 'react';
