@@ -86,6 +86,7 @@ RESTful API routes available under `/api`:
   /actions			→ Server actions for the front-end
   /api            → API routes
   /components     → Reusable UI components
+  /email          → react.email templates
   /fonts				→ Open fonts used
   /lib            → Prisma, utilities, helper functions
   /prisma         → Schema + generated client
