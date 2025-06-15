@@ -3,7 +3,7 @@
 import type React from 'react';
 
 import { subscribe } from '@/app/actions/subscribe';
-import { AlertCircle, CheckCircle, Mail } from 'lucide-react';
+import { AlertCircle, BellDot, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 
 export default function SubscribeForm() {
@@ -46,8 +46,8 @@ export default function SubscribeForm() {
 		<div className="mx-auto h-min max-w-2xl rounded-lg border border-amber-600/30 bg-zinc-900 p-6">
 			<div className="mb-6 text-center">
 				<div className="mb-3 flex items-center justify-center">
-					<Mail className="mr-2 h-6 w-6 text-amber-400" />
-					<h3 className="font-bold text-amber-400 text-xl">Stay Updated</h3>
+					<BellDot className="mr-2 size-6 text-amber-400" />
+					<h3 className="font-bold text-amber-400 text-xl">Get notified</h3>
 				</div>
 				<p className="text-sm text-zinc-300">
 					Subscribe to receive notifications about new flights and special aviation
@@ -74,7 +74,7 @@ export default function SubscribeForm() {
 					disabled={isSubmitting || !email.trim()}
 					className="w-1/3 rounded bg-amber-600 p-4 font-semibold text-sm text-white transition-colors hover:bg-amber-700 disabled:bg-amber-600/50"
 				>
-					{isSubmitting ? 'Subscribing...' : 'Subscribe to Updates'}
+					{isSubmitting ? 'Subscribing...' : 'Subscribe'}
 				</button>
 			</form>
 
@@ -89,9 +89,9 @@ export default function SubscribeForm() {
 				>
 					<div className="flex items-center">
 						{result.success ? (
-							<CheckCircle className="mr-2 h-4 w-4 flex-shrink-0" />
+							<CheckCircle className="mr-2 size-4 flex-shrink-0" />
 						) : (
-							<AlertCircle className="mr-2 h-4 w-4 flex-shrink-0" />
+							<AlertCircle className="mr-2 size-4 flex-shrink-0" />
 						)}
 						<span>{result.message}</span>
 					</div>

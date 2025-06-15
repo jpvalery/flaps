@@ -88,11 +88,11 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 	const getStatusIcon = () => {
 		switch (booking.status) {
 			case 'CONFIRMED':
-				return <CheckCircle className="h-8 w-8 text-green-400" />;
+				return <CheckCircle className="size-8 text-green-400" />;
 			case 'CANCELLED':
-				return <XCircle className="h-8 w-8 text-red-400" />;
+				return <XCircle className="size-8 text-red-400" />;
 			default:
-				return <AlertCircle className="h-8 w-8 text-amber-400" />;
+				return <AlertCircle className="size-8 text-amber-400" />;
 		}
 	};
 
@@ -149,7 +149,7 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 									</div>
 									<div>
 										<p className="flex items-center text-sm text-zinc-400">
-											<Users className="mr-2 h-4 w-4" />
+											<Users className="mr-2 size-4" />
 											Seats Reserved
 										</p>
 										<p className="text-lg text-white">{booking.seats}</p>
@@ -159,7 +159,7 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 								{/* Flight Information */}
 								<div className="space-y-4">
 									<h3 className="mb-4 flex items-center font-bold text-amber-300 text-xl">
-										<Plane className="mr-2 h-5 w-5" />
+										<Plane className="mr-2 size-5" />
 										Flight Information
 									</h3>
 									<div>
@@ -170,7 +170,7 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 									</div>
 									<div>
 										<p className="flex items-center text-sm text-zinc-400">
-											<Clock className="mr-2 h-4 w-4" />
+											<Clock className="mr-2 size-4" />
 											Schedule
 										</p>
 										<p className="text-white">{formattedDate}</p>
@@ -192,9 +192,9 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 										}`}
 									>
 										{result.success ? (
-											<CheckCircle className="h-5 w-5" />
+											<CheckCircle className="size-5" />
 										) : (
-											<XCircle className="h-5 w-5" />
+											<XCircle className="size-5" />
 										)}
 										<span>{result.message}</span>
 									</div>
@@ -203,7 +203,7 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 								<div className="mt-8 space-y-4">
 									<div className="rounded border border-amber-600/30 bg-amber-600/10 p-4">
 										<p className="text-center text-amber-300">
-											<AlertCircle className="mr-2 inline h-5 w-5" />
+											<AlertCircle className="mr-2 inline size-5" />
 											Please confirm your booking to secure your seats. Your reservation
 											will expire in 24 hours.
 										</p>

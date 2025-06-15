@@ -1,13 +1,13 @@
 'use client';
 
 import {
-	AlertCircle,
-	Clock,
-	Plane,
-	Route,
-	TicketsPlane,
-	Users,
-	X,
+    AlertCircle,
+    Clock,
+    Plane,
+    Route,
+    TicketsPlane,
+    Users,
+    X,
 } from 'lucide-react';
 import { useState } from 'react';
 import BookingForm from './booking-form';
@@ -67,7 +67,7 @@ export default function FlightModal({
 						onClick={onClose}
 						className="text-amber-400 transition-colors hover:text-amber-300"
 					>
-						<X className="h-6 w-6" />
+						<X className="size-6" />
 					</button>
 				</div>
 

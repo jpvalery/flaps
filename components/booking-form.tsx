@@ -113,7 +113,7 @@ export default function BookingForm({ flight, onBack }: BookingFormProps) {
 					onClick={onBack}
 					className="mr-4 text-amber-400 transition-colors hover:text-amber-300"
 				>
-					<ArrowLeft className="h-5 w-5" />
+					<ArrowLeft className="size-5" />
 				</button>
 				<h3 className="font-bold text-amber-400 text-xl">Reserve Your Seat</h3>
 			</div>

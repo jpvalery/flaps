@@ -56,7 +56,7 @@ export default function Home() {
 		return (
 			<div className="flex min-h-screen items-center justify-center bg-zinc-950 text-amber-400">
 				<div className="text-center">
-					<div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-amber-400 border-b-2" />
+					<div className="mx-auto mb-4 size-12 animate-spin rounded-full border-amber-400 border-b-2" />
 					<p className="text-lg">Loading flight information...</p>
 				</div>
 			</div>
