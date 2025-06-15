@@ -1,5 +1,9 @@
 'use server';
 
+import type { Booking } from '@/types';
+
+import { generateConfirmationEmail, sendEmail } from '@/lib/email';
+
 import { revalidatePath } from 'next/cache';
 
 export async function confirmBookingAction(bookingId: string) {
@@ -19,6 +23,26 @@ export async function confirmBookingAction(bookingId: string) {
 				message:
 					'Unable to confirm booking. It may have already been processed or the flight is full.',
 			};
+		}
+
+		// Send confirmation email
+		const fetchBooking = await fetch(
+			`${process.env.WWW}/api/booking/get/${bookingId}`,
+			{
+				method: 'GET',
+			}
+		);
+		const booking = await fetchBooking.json()
+		const emailData = generateConfirmationEmail(booking as Booking);
+		const emailSent = await sendEmail({
+			to: booking.email,
+			id: booking.flightId,
+			subject: emailData.subject,
+			html: emailData.html,
+		});
+
+		if (!emailSent) {
+			console.error('Failed to send confirmation email');
 		}
 
 		// Revalidate pages that show flight data
