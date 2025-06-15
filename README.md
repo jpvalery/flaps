@@ -1,30 +1,113 @@
-# Next.js website design
+# ✈️ FLAPS – Flexible Light Aircraft Passenger System
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+**FLAPS** is an open-source platform for managing and booking seats on private or light aircraft flights. Built with modern web technologies, FLAPS makes it easy to list flights, book seats, and manage reservations—all through a clean UI and powerful API.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/jpvalery-team/v0-next-js-website-design)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/Bd9P7zLEiYH)
+---
 
-## Overview
+## 🚀 Tech Stack
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+- **Framework**: [Next.js](https://nextjs.org/) 15 (App Router)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Database**: PostgreSQL (via [Prisma ORM](https://www.prisma.io/))
+- **Emails**: [Resend](https://resend.com)
+- **Hosting**: Easily deployable to Vercel
 
-## Deployment
+---
 
-Your project is live at:
+## 📦 Features
 
-**[https://vercel.com/jpvalery-team/v0-next-js-website-design](https://vercel.com/jpvalery-team/v0-next-js-website-design)**
+### 🛩️ Flight Management
+- Create new flights with route, date/time, aircraft type, and seat availability
+- View a list of upcoming flights
+- Cancel flights (cascade cancel all bookings)
 
-## Build your app
+### 👥 Passenger Booking
+- Book available seats on upcoming flights
+- Cancel individual bookings
+- Real-time seat availability updates
 
-Continue building your app on:
+### 🔌 API Endpoints
+RESTful API routes available under `/api`:
 
-**[https://v0.dev/chat/projects/Bd9P7zLEiYH](https://v0.dev/chat/projects/Bd9P7zLEiYH)**
+| Method | Endpoint                   | Description                 |
+| ------ | -------------------------- | --------------------------- |
+| POST   | `/api/booking/cancel/:id`  | Cancel a single booking     |
+| POST   | `/api/booking/confirm/:id` | Confirm a single booking    |
+| POST   | `/api/booking/create`      | Create a booking            |
+| GET    | `/api/booking/get/:id`     | Fetch details for a booking |
+| DELETE | `/api/flight/:id`          | Delete (cancel) a flight    |
+| POST   | `/api/flight`              | Create a new flight         |
+| GET    | `/api/flights`             | Get all available flights   |
 
-## How It Works
 
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+---
+
+## 🧑‍💻 Getting Started
+
+1. **Clone the repo:**
+
+   ```bash
+   git clone https://github.com/jpvalery/flaps.git
+   cd flaps
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   pnpm install
+   ```
+
+3. **Configure environment:**
+
+   Duplicate the `env.example` file and add the required variables:
+
+4. **Generate and apply database schema:**
+
+   ```bash
+   npx prisma generate
+   npx prisma migrate dev --name init
+	npx prisma db push
+   ```
+
+5. **Run the dev server:**
+
+   ```bash
+   pnpm dev
+   ```
+
+6. **Visit**: [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🧱 Project Structure
+
+```
+/app
+  /actions			→ Server actions for the front-end
+  /api            → API routes
+  /components     → Reusable UI components
+  /fonts				→ Open fonts used
+  /lib            → Prisma, utilities, helper functions
+  /prisma         → Schema + generated client
+  /public         → Public folder
+```
+
+---
+
+## 🤝 Contributing
+
+PRs and issues welcome! Whether you're a pilot, designer, or developer—help us improve FLAPS for the community.
+
+---
+
+## 📝 License
+
+MIT — free for personal and commercial use.
+
+---
+
+## ✈️ About the Name
+
+**FLAPS** = *Flexible Light Aircraft Passenger System* — inspired by the flight control surfaces that make smooth takeoffs and landings possible.
+
+---
