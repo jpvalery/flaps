@@ -71,11 +71,10 @@ export default function SplitFlapCharacter({
 		performFlip(0);
 	};
 
-
 	return (
 		<div className="relative">
 			<div
-				className={`flex h-12 w-8 items-center justify-center rounded-sm border border-zinc-600 bg-linear-to-b from-zinc-700 to-zinc-800 font-mono font-semibold text-2xl text-amber-400 shadow-lg transition-transform duration-150 ease-in-out ${isFlipping ? 'animate-pulse' : ''}
+				className={`flex h-10 w-6 items-center justify-center rounded-sm border border-zinc-600 bg-linear-to-b from-zinc-700 to-zinc-800 font-mono font-semibold text-amber-400 text-xl shadow-lg transition-transform duration-150 ease-in-out sm:h-12 sm:w-8 sm:text-2xl ${isFlipping ? 'animate-pulse' : ''}
         `}
 				style={{
 					transformOrigin: 'center',

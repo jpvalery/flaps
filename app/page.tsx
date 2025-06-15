@@ -5,6 +5,12 @@ import SplitFlapBoard from '@/components/split-flap/split-flap-board';
 import SubscribeForm from '@/components/subscribe-form';
 import Footer from '@/components/ui/footer';
 import Header from '@/components/ui/header';
+import {
+	ClockIcon,
+	PlaneLandingIcon,
+	PlaneTakeoffIcon,
+	TicketsPlaneIcon,
+} from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 interface Flight {
@@ -72,19 +78,31 @@ export default function Home() {
 			<main className="container mx-auto grid min-h-[75dvh] grid-flow-row gap-8 px-4 py-8">
 				<div className="mx-auto w-full">
 					{/* Board Header */}
-					<section className="hidden lg:inline">
+					<section className="hidden 2xl:inline">
 						<div className="rounded-t-lg border border-amber-700/40 bg-zinc-900 p-4">
-							<div className="grid grid-cols-12 gap-2 font-semibold text-amber-500 text-sm tracking-wider">
-								<div className="col-span-2">DEPARTURE</div>
-								<div className="col-span-5">DESTINATION</div>
-								<div className="col-span-4">SCHEDULED</div>
-								<div className="col-span-1 text-center">SEATS</div>
+							<div className="grid grid-cols-14 gap-2 font-semibold text-amber-500 tracking-wider">
+								<div className="col-span-4 flex items-center gap-2">
+									<PlaneTakeoffIcon className="-mt-0.5 size-5" />
+									DEPARTURE
+								</div>
+								<div className="col-span-4 flex items-center gap-2">
+									<PlaneLandingIcon className="-mt-0.5 size-5" />
+									DESTINATION
+								</div>
+								<div className="col-span-4 flex items-center gap-2">
+									<ClockIcon className="-mt-0.5 size-5" />
+									SCHEDULED
+								</div>
+								<div className="col-span-2 flex items-center gap-2">
+									<TicketsPlaneIcon className="-mt-0.5 size-5" />
+									SEATS
+								</div>
 							</div>
 						</div>
 					</section>
 
 					{/* Split Flap Board */}
-					<div className="overflow-hidden rounded-b-lg border-amber-600/30 border-x border-b bg-zinc-900 max-lg:rounded-lg max-lg:border">
+					<div className="rounded-b-lg border-amber-600/30 border-x border-b bg-zinc-900 max-2xl:rounded-lg max-2xl:border">
 						{flights.length > 0 ? (
 							<SplitFlapBoard flights={flights} onFlightClick={setSelectedFlight} />
 						) : (
