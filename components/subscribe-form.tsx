@@ -50,8 +50,7 @@ export default function SubscribeForm() {
 					<h3 className="font-bold text-xl text-zinc-50">Get notified</h3>
 				</div>
 				<p className="text-sm text-zinc-300">
-					Subscribe to receive notifications about new flights and special aviation
-					events.
+					Subscribe to receive notifications about new flights
 				</p>
 			</div>
 
