@@ -19,7 +19,7 @@ export async function sendEmail(data: EmailData): Promise<boolean> {
 	// we send the email
 	try {
 		const sendEmail = await resend.emails.send({
-			from: 'Jp <mail@flaps.jpvalery.me>',
+			from: process.env.PILOT_SENDING_FROM || 'onboarding@resend.dev',
 			to: [data.to],
 			replyTo: process.env.PILOT_PERSONAL_EMAIL,
 			subject: data.subject,
@@ -39,7 +39,7 @@ export async function sendBatchEmail(emails: EmailData[]): Promise<boolean> {
 	try {
 		const payload = emails.map((data) => {
 			return {
-				from: 'Jp <mail@flaps.jpvalery.me>',
+				from: process.env.PILOT_SENDING_FROM || 'onboarding@resend.dev',
 				to: [data.to],
 				subject: data.subject,
 				replyTo: process.env.PILOT_PERSONAL_EMAIL,
