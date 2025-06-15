@@ -77,9 +77,9 @@ export default function BookingForm({ flight, onBack }: BookingFormProps) {
 					}`}
 				>
 					{bookingResult.success ? (
-						<Check className="size-8 text-white" />
+						<Check className="size-8 text-zinc-50" />
 					) : (
-						<X className="size-8 text-white" />
+						<X className="size-8 text-zinc-50" />
 					)}
 				</div>
 				<h3
@@ -152,7 +152,7 @@ export default function BookingForm({ flight, onBack }: BookingFormProps) {
 							value={formData.name}
 							onChange={handleInputChange}
 							required
-							className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-white transition-colors focus:border-amber-400 focus:outline-none"
+							className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-50 transition-colors focus:border-amber-400 focus:outline-none"
 							placeholder="Enter your full name"
 						/>
 					</label>
@@ -170,7 +170,7 @@ export default function BookingForm({ flight, onBack }: BookingFormProps) {
 							value={formData.email}
 							onChange={handleInputChange}
 							required
-							className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-white transition-colors focus:border-amber-400 focus:outline-none"
+							className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-50 transition-colors focus:border-amber-400 focus:outline-none"
 							placeholder="Enter your email address"
 						/>
 					</label>
@@ -186,7 +186,7 @@ export default function BookingForm({ flight, onBack }: BookingFormProps) {
 							name="seats"
 							value={formData.seats}
 							onChange={handleInputChange}
-							className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-white transition-colors focus:border-amber-400 focus:outline-none"
+							className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-50 transition-colors focus:border-amber-400 focus:outline-none"
 						>
 							{Array.from(
 								{ length: Math.min(flight.spotsLeft, 4) },
@@ -205,7 +205,7 @@ export default function BookingForm({ flight, onBack }: BookingFormProps) {
 					<button
 						type="submit"
 						disabled={isSubmitting}
-						className="flex-1 rounded bg-amber-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-amber-700 disabled:bg-amber-600/50"
+						className="flex-1 rounded bg-amber-600 px-6 py-3 font-semibold text-zinc-50 transition-colors hover:bg-amber-700 disabled:bg-amber-600/50"
 					>
 						{isSubmitting ? 'Processing...' : 'Reserve Seats'}
 					</button>

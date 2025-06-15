@@ -140,19 +140,19 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 										Passenger Information
 									</h3>
 									<div>
-										<p className="text-sm text-zinc-400">Name</p>
-										<p className="text-lg text-white">{booking.name}</p>
+										<p className="text-sm text-zinc-300">Name</p>
+										<p className="text-lg text-zinc-50">{booking.name}</p>
 									</div>
 									<div>
-										<p className="text-sm text-zinc-400">Email</p>
-										<p className="text-white">{booking.email}</p>
+										<p className="text-sm text-zinc-300">Email</p>
+										<p className="text-zinc-50">{booking.email}</p>
 									</div>
 									<div>
-										<p className="flex items-center text-sm text-zinc-400">
+										<p className="flex items-center text-sm text-zinc-300">
 											<Users className="mr-2 size-4" />
 											Seats Reserved
 										</p>
-										<p className="text-lg text-white">{booking.seats}</p>
+										<p className="text-lg text-zinc-50">{booking.seats}</p>
 									</div>
 								</div>
 
@@ -163,22 +163,22 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 										Flight Information
 									</h3>
 									<div>
-										<p className="text-sm text-zinc-400">Route</p>
-										<p className="text-lg text-white">
+										<p className="text-sm text-zinc-300">Route</p>
+										<p className="text-lg text-zinc-50">
 											{booking.flight.departure} → {booking.flight.destination}
 										</p>
 									</div>
 									<div>
-										<p className="flex items-center text-sm text-zinc-400">
+										<p className="flex items-center text-sm text-zinc-300">
 											<Clock className="mr-2 size-4" />
 											Schedule
 										</p>
-										<p className="text-white">{formattedDate}</p>
-										<p className="font-mono text-lg text-white">{formattedTime}</p>
+										<p className="text-zinc-50">{formattedDate}</p>
+										<p className="font-mono text-lg text-zinc-50">{formattedTime}</p>
 									</div>
 									<div>
-										<p className="text-sm text-zinc-400">Aircraft</p>
-										<p className="text-white">{booking.flight.aircraft}</p>
+										<p className="text-sm text-zinc-300">Aircraft</p>
+										<p className="text-zinc-50">{booking.flight.aircraft}</p>
 									</div>
 								</div>
 							</div>
@@ -213,7 +213,7 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 											type="button"
 											onClick={handleConfirm}
 											disabled={isProcessing}
-											className="flex-1 rounded bg-green-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-green-700 disabled:bg-green-600/50"
+											className="flex-1 rounded bg-green-600 px-6 py-3 font-semibold text-zinc-50 transition-colors hover:bg-green-700 disabled:bg-green-600/50"
 										>
 											{isProcessing ? 'Processing...' : 'Confirm Booking'}
 										</button>
@@ -229,7 +229,7 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 								</div>
 							) : (
 								<div className="mt-8 text-center">
-									<p className="text-zinc-100">
+									<p className="text-zinc-300">
 										{booking.status === 'CONFIRMED' &&
 											'Your booking has been confirmed. See you at the airport!'}
 										{booking.status === 'CANCELLED' && 'This booking has been cancelled.'}

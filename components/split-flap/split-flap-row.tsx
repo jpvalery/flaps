@@ -169,7 +169,7 @@ export default function SplitFlapRow({
 				</div>
 				<div className="col-span-9 flex justify-start gap-1 sm:col-span-10 lg:col-span-1 lg:justify-center">
 					{spotsText === '0' ? (
-						<span className="animate-pulse text-amber-400">COMPLETE</span>
+						<span className="animate-pulse text-amber-100/50">COMPLETE</span>
 					) : (
 						<>
 							{' '}

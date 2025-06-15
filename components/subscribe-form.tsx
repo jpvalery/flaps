@@ -46,8 +46,8 @@ export default function SubscribeForm() {
 		<div className="mx-auto h-min max-w-2xl rounded-lg border border-amber-600/30 bg-zinc-900 p-6">
 			<div className="mb-6 text-center">
 				<div className="mb-3 flex items-center justify-center">
-					<BellDot className="mr-2 size-6 text-amber-400" />
-					<h3 className="font-bold text-amber-400 text-xl">Get notified</h3>
+					<BellDot className="mr-2 size-6 text-zinc-50" />
+					<h3 className="font-bold text-xl text-zinc-50">Get notified</h3>
 				</div>
 				<p className="text-sm text-zinc-300">
 					Subscribe to receive notifications about new flights and special aviation
@@ -66,13 +66,13 @@ export default function SubscribeForm() {
 					placeholder="Enter your email address"
 					required
 					disabled={isSubmitting}
-					className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-white placeholder-zinc-400 transition-colors focus:border-amber-400 focus:outline-none disabled:opacity-50 md:w-2/3"
+					className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-50 placeholder-zinc-400 transition-colors focus:border-amber-400 focus:outline-none disabled:opacity-50 md:w-2/3"
 				/>
 
 				<button
 					type="submit"
 					disabled={isSubmitting || !email.trim()}
-					className="w-1/3 rounded bg-amber-600 p-4 font-semibold text-sm text-white transition-colors hover:bg-amber-700 disabled:bg-amber-600/50"
+					className="w-1/3 rounded bg-amber-600 p-4 font-semibold text-sm text-zinc-50 transition-colors hover:bg-amber-700 disabled:bg-amber-600/50"
 				>
 					{isSubmitting ? 'Subscribing...' : 'Subscribe'}
 				</button>

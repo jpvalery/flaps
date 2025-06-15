@@ -1,13 +1,13 @@
 'use client';
 
 import {
-    AlertCircle,
-    Clock,
-    Plane,
-    Route,
-    TicketsPlane,
-    Users,
-    X,
+	AlertCircle,
+	Clock,
+	Plane,
+	Route,
+	TicketsPlane,
+	Users,
+	X,
 } from 'lucide-react';
 import { useState } from 'react';
 import BookingForm from './booking-form';
@@ -90,7 +90,7 @@ export default function FlightModal({
 											<Route className="size-4" />
 											Route
 										</h3>
-										<p className="text-lg text-white">
+										<p className="text-lg text-zinc-50">
 											{flight.departure} → {flight.destination}
 										</p>
 									</div>
@@ -100,8 +100,8 @@ export default function FlightModal({
 											<Clock className="size-4" />
 											Schedule
 										</h3>
-										<p className="text-white">{formattedDate}</p>
-										<p className="font-mono text-lg text-white">{formattedTime}</p>
+										<p className="text-zinc-50">{formattedDate}</p>
+										<p className="font-mono text-lg text-zinc-50">{formattedTime}</p>
 									</div>
 								</div>
 
@@ -111,7 +111,7 @@ export default function FlightModal({
 											<Plane className="size-4" />
 											Aircraft
 										</h3>
-										<p className="text-lg text-white">{flight.aircraft}</p>
+										<p className="text-lg text-zinc-50">{flight.aircraft}</p>
 									</div>
 
 									<div>
@@ -119,7 +119,7 @@ export default function FlightModal({
 											<Users className="size-4" />
 											Availability
 										</h3>
-										<p className="text-lg text-white">
+										<p className="text-lg text-zinc-50">
 											{flight.spotsLeft} seat{flight.spotsLeft !== 1 ? 's' : ''} remaining
 										</p>
 									</div>
@@ -150,7 +150,7 @@ export default function FlightModal({
 									<button
 										type="button"
 										onClick={() => setShowBookingForm(true)}
-										className="flex-1 rounded bg-amber-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-amber-700"
+										className="flex-1 rounded bg-amber-600 px-6 py-3 font-semibold text-zinc-50 transition-colors hover:bg-amber-700"
 										disabled={flight.spotsLeft === 0}
 									>
 										Book this flight
