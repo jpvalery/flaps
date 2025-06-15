@@ -152,7 +152,7 @@ export default function BookingForm({ flight, onBack }: BookingFormProps) {
 							value={formData.name}
 							onChange={handleInputChange}
 							required
-							className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-50 transition-colors focus:border-amber-400 focus:outline-none"
+							className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-50 transition-colors focus:border-amber-400 focus:outline-hidden"
 							placeholder="Enter your full name"
 						/>
 					</label>
@@ -170,7 +170,7 @@ export default function BookingForm({ flight, onBack }: BookingFormProps) {
 							value={formData.email}
 							onChange={handleInputChange}
 							required
-							className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-50 transition-colors focus:border-amber-400 focus:outline-none"
+							className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-50 transition-colors focus:border-amber-400 focus:outline-hidden"
 							placeholder="Enter your email address"
 						/>
 					</label>
@@ -186,7 +186,7 @@ export default function BookingForm({ flight, onBack }: BookingFormProps) {
 							name="seats"
 							value={formData.seats}
 							onChange={handleInputChange}
-							className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-50 transition-colors focus:border-amber-400 focus:outline-none"
+							className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-50 transition-colors focus:border-amber-400 focus:outline-hidden"
 						>
 							{Array.from(
 								{ length: Math.min(flight.spotsLeft, 4) },

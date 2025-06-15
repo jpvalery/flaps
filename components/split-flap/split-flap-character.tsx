@@ -75,7 +75,7 @@ export default function SplitFlapCharacter({
 	return (
 		<div className="relative">
 			<div
-				className={`flex h-12 w-8 items-center justify-center rounded-sm border border-zinc-600 bg-gradient-to-b from-zinc-700 to-zinc-800 font-mono font-semibold text-2xl text-amber-400 shadow-lg transition-transform duration-150 ease-in-out ${isFlipping ? 'animate-pulse' : ''}
+				className={`flex h-12 w-8 items-center justify-center rounded-sm border border-zinc-600 bg-linear-to-b from-zinc-700 to-zinc-800 font-mono font-semibold text-2xl text-amber-400 shadow-lg transition-transform duration-150 ease-in-out ${isFlipping ? 'animate-pulse' : ''}
         `}
 				style={{
 					transformOrigin: 'center',
@@ -89,13 +89,13 @@ export default function SplitFlapCharacter({
 			</div>
 
 			{/* Top highlight */}
-			<div className="absolute top-0 right-0 left-0 h-1 rounded-t-sm bg-gradient-to-r from-transparent via-amber-400/20 to-transparent" />
+			<div className="absolute top-0 right-0 left-0 h-1 rounded-t-sm bg-linear-to-r from-transparent via-amber-400/20 to-transparent" />
 
 			{/* Center line */}
 			<div className="-translate-y-px absolute top-1/2 right-0 left-0 h-px transform bg-zinc-900" />
 
 			{/* Bottom shadow */}
-			<div className="absolute right-0 bottom-0 left-0 h-2 rounded-b-sm bg-gradient-to-t from-black/30 to-transparent" />
+			<div className="absolute right-0 bottom-0 left-0 h-2 rounded-b-sm bg-linear-to-t from-black/30 to-transparent" />
 
 			{/* Flipping indicator - subtle glow during animation */}
 			{isFlipping && (

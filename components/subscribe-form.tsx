@@ -65,7 +65,7 @@ export default function SubscribeForm() {
 					placeholder="Enter your email address"
 					required
 					disabled={isSubmitting}
-					className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-50 placeholder-zinc-400 transition-colors focus:border-amber-400 focus:outline-none disabled:opacity-50 md:w-2/3"
+					className="w-full rounded border border-zinc-700 bg-zinc-800 px-4 py-3 text-zinc-50 placeholder-zinc-400 transition-colors focus:border-amber-400 focus:outline-hidden disabled:opacity-50 md:w-2/3"
 				/>
 
 				<button
@@ -88,9 +88,9 @@ export default function SubscribeForm() {
 				>
 					<div className="flex items-center">
 						{result.success ? (
-							<CheckCircle className="mr-2 size-4 flex-shrink-0" />
+							<CheckCircle className="mr-2 size-4 shrink-0" />
 						) : (
-							<AlertCircle className="mr-2 size-4 flex-shrink-0" />
+							<AlertCircle className="mr-2 size-4 shrink-0" />
 						)}
 						<span>{result.message}</span>
 					</div>
