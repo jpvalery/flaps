@@ -68,7 +68,7 @@ export default function SplitFlapRow({
 			className="cursor-pointer border-amber-600/20 border-b transition-colors duration-200 last:border-b-0 hover:bg-zinc-800/50 max-lg:mx-auto max-lg:max-w-fit"
 			onClick={onClick}
 		>
-			<div className="grid grid-cols-14 items-center gap-2 p-4">
+			<div className="grid grid-cols-14 items-center gap-4 p-8">
 				{/* Departure */}
 				<GridCaseLabel>FROM</GridCaseLabel>
 				<GridCaseContent>
