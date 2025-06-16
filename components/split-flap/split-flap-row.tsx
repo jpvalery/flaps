@@ -4,6 +4,7 @@ import SplitFlapCharacter from '@/components/split-flap/split-flap-character';
 import InteractiveWrapper from '@/components/ui/interactive-wrapper';
 import type React from 'react';
 import { useEffect, useState } from 'react';
+import SplitFlapLabel from './split-flap-label';
 
 interface Flight {
 	id: string;
@@ -96,8 +97,8 @@ export default function SplitFlapRow({
 						.map((char, index) => (
 							<SplitFlapCharacter
 								key={index}
-								character={char === ' ' ? ' ' : char}
-								delay={isVisible ? flight.departure.length * 100 + index * 80 : 0}
+								character={char}
+								delay={isVisible ? (index + 1) * 100 : 0}
 							/>
 						))}
 				</GridCaseContent>
@@ -156,7 +157,7 @@ export default function SplitFlapRow({
 						character=" "
 						delay={
 							isVisible
-								? (flight.departure.length + flight.destination.length) * 80 + 2 * 60
+								? (flight.departure.length + flight.destination.length) * 80 + 4 * 60
 								: 0
 						}
 					/>
@@ -166,7 +167,7 @@ export default function SplitFlapRow({
 						character={date.getHours().toString().padStart(2, '0')[0]}
 						delay={
 							isVisible
-								? (flight.departure.length + flight.destination.length) * 80 + 4 * 60
+								? (flight.departure.length + flight.destination.length) * 80 + 5 * 60
 								: 0
 						}
 					/>
@@ -174,7 +175,7 @@ export default function SplitFlapRow({
 						character={date.getHours().toString().padStart(2, '0')[1]}
 						delay={
 							isVisible
-								? (flight.departure.length + flight.destination.length) * 80 + 5 * 60
+								? (flight.departure.length + flight.destination.length) * 80 + 6 * 60
 								: 0
 						}
 					/>
@@ -184,7 +185,7 @@ export default function SplitFlapRow({
 						character=":"
 						delay={
 							isVisible
-								? (flight.departure.length + flight.destination.length) * 80 + 2 * 60
+								? (flight.departure.length + flight.destination.length) * 80 + 7 * 60
 								: 0
 						}
 					/>
@@ -194,7 +195,7 @@ export default function SplitFlapRow({
 						character={date.getMinutes().toString().padStart(2, '0')[0]}
 						delay={
 							isVisible
-								? (flight.departure.length + flight.destination.length) * 80 + 6 * 60
+								? (flight.departure.length + flight.destination.length) * 80 + 8 * 60
 								: 0
 						}
 					/>
@@ -202,7 +203,7 @@ export default function SplitFlapRow({
 						character={date.getMinutes().toString().padStart(2, '0')[1]}
 						delay={
 							isVisible
-								? (flight.departure.length + flight.destination.length) * 80 + 7 * 60
+								? (flight.departure.length + flight.destination.length) * 80 + 9 * 60
 								: 0
 						}
 					/>
@@ -211,25 +212,14 @@ export default function SplitFlapRow({
 				{/* Availability - just number, moved to right */}
 				<GridCaseLabel>SEATS</GridCaseLabel>
 				<div className="col-span-14 flex space-x-1 justify-self-start sm:col-span-12 lg:col-span-6 2xl:col-span-2">
-					{spotsText === '0' ? (
-						<span className="animate-pulse text-amber-100/50">COMPLETE</span>
-					) : (
-						<>
-							{' '}
-							{spotsText.split('').map((char, index) => (
-								<SplitFlapCharacter
-									key={index}
-									character={char}
-									delay={
-										isVisible
-											? (flight.departure.length + flight.destination.length + 8) * 60 +
-												index * 50
-											: 0
-									}
-								/>
-							))}
-						</>
-					)}
+					<SplitFlapLabel
+						character={spotsText}
+						delay={
+							isVisible
+								? (flight.departure.length + flight.destination.length) * 80 + 10 * 60
+								: 0
+						}
+					/>
 				</div>
 			</div>
 		</InteractiveWrapper>
