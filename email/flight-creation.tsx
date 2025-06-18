@@ -13,14 +13,11 @@ import {
 
 export interface FlightCreationEmailProps {
 	flight: Flight;
-	ctaUrl: string;
 }
 
-export function FlightCreationEmail({
-	flight,
-	ctaUrl,
-}: FlightCreationEmailProps) {
+export function FlightCreationEmail({ flight }: FlightCreationEmailProps) {
 	const fallback = broadcastDataFallbacks(flight);
+	const confirmationUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/flight/${flight.id}`;
 
 	return (
 		<Html>
@@ -65,7 +62,7 @@ export function FlightCreationEmail({
 						</Section>
 
 						<Section style={center}>
-							<Link href={ctaUrl} style={button}>
+							<Link href={confirmationUrl} style={button}>
 								Book This Flight
 							</Link>
 						</Section>

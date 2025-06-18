@@ -177,7 +177,6 @@ export function generateNewFlightBroadcast(flight: Flight): BroadcastData {
 			month: 'long',
 			day: 'numeric',
 		})}`,
-		// biome-ignore lint/style/noNonNullAssertion: "OK"
-		react: <FlightCreationEmail flight={flight} ctaUrl={process.env.WWW!} />,
+		react: <FlightCreationEmail flight={flight} />,
 	};
 }
