@@ -35,6 +35,14 @@ export type EmailData =
 			react: ReactElement;
 	  };
 
+export type BroadcastData = {
+	audience_id: string;
+	name: string;
+	from: string;
+	subject: string;
+	react: ReactElement;
+};
+
 export type ContactData = {
 	email: string;
 };
@@ -46,4 +54,5 @@ export type CreateFlightPayload = {
 	spotsLeft: number;
 	aircraft: string;
 	notes?: string;
+	notify?: boolean;
 };

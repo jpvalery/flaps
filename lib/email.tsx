@@ -1,4 +1,4 @@
-import type { Booking, EmailData } from '@/types';
+import type { Booking, BroadcastData, EmailData, Flight } from '@/types';
 
 import { createContact } from '@/lib/contacts';
 
@@ -9,6 +9,7 @@ import FlightBookingConfirmationEmail from '@/email/booking-confirmation';
 import FlightBookingReservationEmail from '@/email/booking-reservation';
 
 import FlightCancellationEmail from '@/email/flight-cancellation';
+import { FlightCreationEmail } from '@/email/flight-creation';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -54,6 +55,34 @@ export async function sendBatchEmail(emails: EmailData[]): Promise<boolean> {
 		return true;
 	} catch (error) {
 		console.error('Error sending batch emails:', error);
+		return false;
+	}
+}
+
+export async function sendBroadcast(data: BroadcastData): Promise<boolean> {
+	// we create the broadcast then send it
+	try {
+		const createBroadcast = await resend.broadcasts.create({
+			from: process.env.PILOT_SENDING_FROM || 'onboarding@resend.dev',
+			replyTo: process.env.PILOT_PERSONAL_EMAIL,
+			name: data.name,
+			subject: data.subject,
+			audienceId: data.audience_id,
+			react: data.react,
+		});
+
+		console.log(createBroadcast);
+
+		if (createBroadcast?.data !== null && createBroadcast?.data?.id !== null) {
+			const sendBroadcast = await resend.broadcasts.send(createBroadcast.data.id);
+			console.log(sendBroadcast);
+		} else {
+			throw new Error("Couldn't send broadcast that was created");
+		}
+
+		return true;
+	} catch (error) {
+		console.error('Error sending email:', error);
 		return false;
 	}
 }
@@ -125,5 +154,30 @@ export function generateBookingCancelledEmail(booking: Booking): EmailData {
 				flightTime={emailData.flightTime}
 			/>
 		),
+	};
+}
+
+export function generateNewFlightBroadcast(flight: Flight): BroadcastData {
+	return {
+		// biome-ignore lint/style/noNonNullAssertion: "OK"
+		audience_id: process.env.RESEND_AUDIENCE_ID!,
+		name: `${flight.departure} → ${flight.destination} on ${new Date(
+			flight.datetime
+		).toLocaleDateString('en-US', {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric',
+		})}`,
+		// biome-ignore lint/style/noNonNullAssertion: "OK"
+		from: process.env.PILOT_SENDING_FROM!,
+		subject: `🛫 ${flight.departure} → ${flight.destination} on ${new Date(
+			flight.datetime
+		).toLocaleDateString('en-US', {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric',
+		})}`,
+		// biome-ignore lint/style/noNonNullAssertion: "OK"
+		react: <FlightCreationEmail flight={flight} ctaUrl={process.env.WWW!} />,
 	};
 }

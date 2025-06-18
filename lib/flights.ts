@@ -6,12 +6,22 @@ import {
 	cancelBookingsByFlightId,
 	getBookingsByFlightId,
 } from '@/lib/bookings';
-import { generateFlightCancellationEmail, sendBatchEmail } from '@/lib/email';
+import {
+	generateFlightCancellationEmail,
+	generateNewFlightBroadcast,
+	sendBatchEmail,
+	sendBroadcast,
+} from '@/lib/email';
 import type { CreateFlightPayload, EmailData, Flight } from '@/types';
 
 export async function getFlights(): Promise<Flight[]> {
 	try {
 		const flights = await prisma.flight.findMany({
+			where: {
+				datetime: {
+					gte: new Date(new Date().setHours(0, 0, 0, 0)),
+				},
+			},
 			orderBy: {
 				datetime: 'asc',
 			},
@@ -96,6 +106,18 @@ export async function createFlight(payload: CreateFlightPayload) {
 				notes: payload.notes || '',
 			},
 		});
+
+		const broadcastData = generateNewFlightBroadcast({
+			id: newFlight.id,
+			departure: newFlight.departure,
+			destination: newFlight.destination,
+			datetime: newFlight.datetime.toISOString(),
+			spotsLeft: newFlight.spotsLeft,
+			aircraft: newFlight.aircraft,
+			notes: newFlight.notes || '',
+		});
+
+		await sendBroadcast(broadcastData);
 
 		return {
 			id: newFlight.id,
