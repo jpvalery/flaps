@@ -75,9 +75,9 @@ export default function FlightBookingReservationEmail({
 						</Section>
 
 						<Text>
-							<strong>Important:</strong> Your seats are reserved for 24 hours. Please
-							confirm your booking to secure your seats.
+							<strong>Important:</strong> Your seats are not secured yet.
 						</Text>
+						<Text>Please confirm your booking to secure your seats.</Text>
 
 						<Text>
 							If you cannot click the button above, copy and paste this link into your

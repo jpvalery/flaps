@@ -183,19 +183,27 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 
 							{/* Action Buttons */}
 							{result ? (
-								<div className="mt-8 rounded border p-4 text-center">
-									<div
-										className={`inline-flex items-center space-x-2 ${
-											result.success ? 'text-green-400' : 'text-red-400'
-										}`}
-									>
-										{result.success ? (
-											<CheckCircle className="size-5" />
-										) : (
-											<XCircle className="size-5" />
-										)}
-										<span>{result.message}</span>
+								<div className="mt-8 grid grid-flow-row items-center justify-center gap-4 text-center">
+									<div className="rounded border p-4 text-center">
+										<div
+											className={`inline-flex items-center space-x-2 ${
+												result.success ? 'text-green-400' : 'text-red-400'
+											}`}
+										>
+											{result.success ? (
+												<CheckCircle className="size-5" />
+											) : (
+												<XCircle className="size-5" />
+											)}
+											<span>{result.message}</span>
+										</div>
 									</div>
+									<Link
+										href="/"
+										className="text-center text-amber-400 text-sm hover:text-amber-500"
+									>
+										Return to home
+									</Link>
 								</div>
 							) : booking.status === 'RESERVED' ? (
 								<div className="mt-8 space-y-4">
@@ -203,9 +211,6 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 										<p className="flex items-center text-center text-amber-300">
 											<AlertCircle className="mr-2 inline size-5" />
 											Please confirm your booking to secure your seats.
-										</p>
-										<p className="text-center text-amber-300">
-											Your reservation will expire in 24 hours.
 										</p>
 									</div>
 									<div className="flex space-x-4">
@@ -239,7 +244,7 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 											type="button"
 											onClick={handleCancel}
 											disabled={isProcessing}
-											className="rounded border border-red-600/50 px-6 py-3 text-red-400 transition-colors hover:bg-red-600/10"
+											className="cursor-pointer rounded border border-red-600/50 px-6 py-3 text-red-400 transition-colors hover:bg-red-600/10"
 										>
 											Cancel Booking
 										</button>
