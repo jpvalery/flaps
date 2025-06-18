@@ -205,14 +205,14 @@ export default function BookingForm({ flight, onBack }: BookingFormProps) {
 					<button
 						type="submit"
 						disabled={isSubmitting}
-						className="flex-1 rounded bg-amber-600 px-6 py-3 font-semibold text-zinc-50 transition-colors hover:bg-amber-700 disabled:bg-amber-600/50"
+						className={`flex-1 rounded bg-amber-600 px-6 py-3 font-semibold text-zinc-50 transition-colors hover:bg-amber-700 disabled:bg-amber-600/50 ${isSubmitting ? 'cursor-wait' : 'cursor-pointer'}`}
 					>
 						{isSubmitting ? 'Processing...' : 'Reserve Seats'}
 					</button>
 					<button
 						type="button"
 						onClick={onBack}
-						className="rounded border border-amber-600/50 px-6 py-3 text-amber-400 transition-colors hover:bg-amber-600/10"
+						className="cursor-pointer rounded border border-amber-600/50 px-6 py-3 text-amber-400 transition-colors hover:bg-amber-600/10"
 					>
 						Back
 					</button>

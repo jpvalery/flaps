@@ -71,7 +71,7 @@ export default function SubscribeForm() {
 				<button
 					type="submit"
 					disabled={isSubmitting || !email.trim()}
-					className="w-1/3 rounded bg-amber-600 p-4 font-semibold text-sm text-zinc-50 transition-colors hover:bg-amber-700 disabled:bg-amber-600/50"
+					className={`w-1/3 rounded bg-amber-600 p-4 font-semibold text-sm text-zinc-50 transition-colors hover:bg-amber-700 disabled:bg-amber-600/50 ${isSubmitting ? 'cursor-wait' : 'cursor-pointer'}`}
 				>
 					{isSubmitting ? 'Subscribing...' : 'Subscribe'}
 				</button>

@@ -213,7 +213,7 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 											type="button"
 											onClick={handleConfirm}
 											disabled={isProcessing}
-											className="flex-1 rounded bg-green-600 px-6 py-3 font-semibold text-zinc-50 transition-colors hover:bg-green-700 disabled:bg-green-600/50"
+											className={`flex-1 rounded bg-green-600 px-6 py-3 font-semibold text-zinc-50 transition-colors hover:bg-green-700 disabled:bg-green-600/50 ${isProcessing ? 'cursor-wait' : 'cursor-pointer'}`}
 										>
 											{isProcessing ? 'Processing...' : 'Confirm Booking'}
 										</button>
@@ -221,7 +221,7 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 											type="button"
 											onClick={handleCancel}
 											disabled={isProcessing}
-											className="rounded border border-red-600/50 px-6 py-3 text-red-400 transition-colors hover:bg-red-600/10"
+											className="cursor-pointer rounded border border-red-600/50 px-6 py-3 text-red-400 transition-colors hover:bg-red-600/10"
 										>
 											Cancel Booking
 										</button>

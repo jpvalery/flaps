@@ -150,7 +150,7 @@ export default function FlightModal({
 									<button
 										type="button"
 										onClick={() => setShowBookingForm(true)}
-										className="flex-1 rounded bg-amber-600 px-6 py-3 font-semibold text-zinc-50 transition-colors hover:bg-amber-700"
+										className="flex-1 cursor-pointer rounded bg-amber-600 px-6 py-3 font-semibold text-zinc-50 transition-colors hover:bg-amber-700"
 										disabled={flight.spotsLeft === 0}
 									>
 										Book this flight
