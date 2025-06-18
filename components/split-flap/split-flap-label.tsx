@@ -9,6 +9,7 @@ interface SplitFlapCharacterProps {
 
 // Characters that can appear during flipping animation
 const FLIP_CHARACTERS = [
+	' ',
 	'COMPLETE',
 	'1 REMAINING',
 	'2 REMAINING',
@@ -42,13 +43,14 @@ export default function SplitFlapLabel({
 	const startFlippingSequence = () => {
 		setIsFlipping(true);
 		setFlipCount(0);
+		setDisplayChar(' ');
 
 		// Number of flips before settling (3-6 flips for variety)
 		const totalFlips = Math.floor(Math.random() * 4) + 6;
 
 		const performFlip = (currentFlip: number) => {
 			// Flip duration gets slightly longer each time to create deceleration effect
-			const flipDuration = 120 + currentFlip * 40;
+			const flipDuration = 150 + currentFlip * 40;
 
 			// Scale down (hide character)
 			setTimeout(() => {
@@ -92,11 +94,13 @@ export default function SplitFlapLabel({
 						: 'transform 0.3s ease-out',
 				}}
 			>
-				{isFlipping
-					? displayChar
+				{displayChar === ' '
+					? ' '
 					: displayChar === '0'
 						? 'COMPLETE'
-						: `${displayChar} REMAINING`}
+						: Number.isInteger(Number(displayChar))
+							? `${displayChar} REMAINING`
+							: displayChar}
 			</div>
 
 			{/* Top highlight */}

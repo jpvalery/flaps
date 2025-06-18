@@ -212,14 +212,7 @@ export default function SplitFlapRow({
 				{/* Availability - just number, moved to right */}
 				<GridCaseLabel>SEATS</GridCaseLabel>
 				<div className="col-span-14 flex space-x-1 justify-self-start sm:col-span-12 lg:col-span-6 2xl:col-span-2">
-					<SplitFlapLabel
-						character={spotsText}
-						delay={
-							isVisible
-								? (flight.departure.length + flight.destination.length) * 80 + 10 * 60
-								: 0
-						}
-					/>
+					<SplitFlapLabel character={spotsText} delay={1} />
 				</div>
 			</div>
 		</InteractiveWrapper>
