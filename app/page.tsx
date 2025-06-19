@@ -107,7 +107,10 @@ export default function Home() {
 						{flights.length > 0 ? (
 							<SplitFlapBoard flights={flights} onFlightClick={setSelectedFlight} />
 						) : (
-							<SplitFlapRowText string={'No flights available at this time'} delay={1}/>
+							<SplitFlapRowText
+								string={'No flights available at this time'}
+								delay={1}
+							/>
 						)}
 					</div>
 				</div>

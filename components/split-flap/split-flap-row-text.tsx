@@ -59,8 +59,6 @@ export function splitAndCleanString(input: string): string[] {
 	return chunks.filter((chunk) => chunk.trim().length > 0);
 }
 
-
-
 export default function SplitFlapRowText({ string, delay }: SplitFlapRowProps) {
 	const [isVisible, setIsVisible] = useState(false);
 
@@ -94,19 +92,19 @@ export default function SplitFlapRowText({ string, delay }: SplitFlapRowProps) {
 				))}
 			</div>
 			{/* Desktop */}
-			<div className='mx-auto hidden max-w-fit gap-1 px-8 py-24 2xl:grid 2xl:grid-flow-col'>
-					{string
-						.toUpperCase()
-						.padEnd(40, ' ') // re-pad to 10 after trimming
-						.split('')
-						.map((char, charIndex) => (
-							<SplitFlapCharacter
-								key={charIndex}
-								character={char}
-								delay={isVisible ? 1 : 0}
-							/>
-						))}
-				</div>
+			<div className="mx-auto hidden max-w-fit gap-1 px-8 py-24 2xl:grid 2xl:grid-flow-col">
+				{string
+					.toUpperCase()
+					.padEnd(40, ' ') // re-pad to 10 after trimming
+					.split('')
+					.map((char, charIndex) => (
+						<SplitFlapCharacter
+							key={charIndex}
+							character={char}
+							delay={isVisible ? 1 : 0}
+						/>
+					))}
+			</div>
 		</>
 	);
 }
