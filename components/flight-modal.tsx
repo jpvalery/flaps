@@ -55,7 +55,7 @@ export default function FlightModal({
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-			<div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-lg border border-amber-600/30 bg-zinc-900">
+			<div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xs border border-amber-600/30 bg-zinc-900">
 				{/* Header */}
 				<div className="flex items-center justify-between border-amber-600/30 border-b p-6">
 					<div className="flex items-center space-x-3 text-amber-400">

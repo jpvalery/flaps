@@ -43,7 +43,7 @@ export default function SubscribeForm() {
 	};
 
 	return (
-		<div className="mx-auto h-min max-w-2xl rounded-lg border border-amber-600/30 bg-zinc-900 p-6">
+		<div className="mx-auto h-min max-w-2xl rounded-xs border border-amber-600/30 bg-zinc-900 p-6">
 			<div className="mb-6 text-center">
 				<div className="mb-3 flex items-center justify-center">
 					<BellDot className="mr-2 size-6 text-zinc-50" />

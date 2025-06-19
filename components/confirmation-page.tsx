@@ -113,7 +113,7 @@ export default function ConfirmationPage({ booking }: ConfirmationPageProps) {
 			{/* Main Content */}
 			<main className="container mx-auto px-4 py-8">
 				<div className="mx-auto max-w-4xl">
-					<div className="overflow-hidden rounded-lg border border-amber-600/30 bg-zinc-900">
+					<div className="overflow-hidden rounded-xs border border-amber-600/30 bg-zinc-900">
 						{/* Status Header */}
 						<div className="border-amber-600/30 border-b bg-zinc-800 p-6">
 							<div className="grid grid-flow-row items-center justify-center gap-3">

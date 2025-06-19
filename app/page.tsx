@@ -2,6 +2,7 @@
 
 import FlightModal from '@/components/flight-modal';
 import SplitFlapBoard from '@/components/split-flap/split-flap-board';
+import SplitFlapRowText from '@/components/split-flap/split-flap-row-text';
 import SubscribeForm from '@/components/subscribe-form';
 import Footer from '@/components/ui/footer';
 import Header from '@/components/ui/header';
@@ -79,7 +80,7 @@ export default function Home() {
 				<div className="mx-auto w-full">
 					{/* Board Header */}
 					<section className="hidden 2xl:inline">
-						<div className="rounded-t-lg border border-amber-700/40 bg-zinc-900 p-4">
+						<div className="rounded-t-xs border border-amber-700/40 bg-zinc-900 p-4">
 							<div className="grid grid-cols-14 gap-2 font-semibold text-amber-500 tracking-wider">
 								<div className="col-span-4 flex items-center gap-2">
 									<PlaneTakeoffIcon className="-mt-0.5 size-5" />
@@ -102,11 +103,11 @@ export default function Home() {
 					</section>
 
 					{/* Split Flap Board */}
-					<div className="rounded-b-lg border-amber-600/30 border-x border-b bg-zinc-900 max-2xl:rounded-lg max-2xl:border">
+					<div className="rounded-b-xs border-amber-600/30 border-x border-b bg-zinc-900 max-2xl:rounded-xs max-2xl:border">
 						{flights.length > 0 ? (
 							<SplitFlapBoard flights={flights} onFlightClick={setSelectedFlight} />
 						) : (
-							<p className="text-amber-300">No flights available at this time.</p>
+							<SplitFlapRowText string={'No flights available at this time'} delay={1}/>
 						)}
 					</div>
 				</div>
