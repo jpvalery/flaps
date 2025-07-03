@@ -1,3 +1,5 @@
+<img align="left" width="150" height="150" src="https://github.com/user-attachments/assets/001425ee-d5f2-4adc-82cf-83ffff5ab9bf">
+
 # ✈️ FLAPS – Flexible Light Aircraft Passenger System
 
 **FLAPS** is an open-source platform for managing and booking seats on private or light aircraft flights. Built with modern web technologies, FLAPS makes it easy to list flights, book seats, and manage reservations—all through a clean UI and powerful API.
