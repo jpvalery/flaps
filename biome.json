@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
 	"formatter": {
 		"enabled": true,
 		"formatWithErrors": true,
@@ -9,13 +9,11 @@
 		"lineWidth": 80,
 		"attributePosition": "auto"
 	},
-	"organizeImports": { "enabled": true },
+	"assist": { "actions": { "source": { "organizeImports": "on" } } },
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"all": true,
 			"a11y": {
-				"all": true,
 				"noAutofocus": "off"
 			},
 			"complexity": {
@@ -33,15 +31,7 @@
 				"noNodejsModules": "off"
 			},
 			"nursery": {
-				"all": true,
-				"noCommonJs": "off",
-				"noNestedTernary": "off",
-				"noProcessEnv": "off",
-				"noSecrets": "off",
-				"useComponentExportOnlyModules": "off",
 				"useExplicitType": "off",
-				"useImportRestrictions": "off",
-				"useConsistentCurlyBraces": "off",
 				"useSortedClasses": {
 					"fix": "safe",
 					"level": "error",
@@ -67,13 +57,20 @@
 					}
 				},
 				"useSingleVarDeclarator": "off",
-				"useNamingConvention": "off"
+				"useNamingConvention": "off",
+				"noCommonJs": "off",
+				"noNestedTernary": "off",
+				"noProcessEnv": "off",
+				"useComponentExportOnlyModules": "off",
+				"useConsistentCurlyBraces": "off"
 			},
 			"suspicious": {
 				"noReactSpecificProps": "off",
 				"noArrayIndexKey": "off",
-				"noConsole": "off",
-				"noConsoleLog": "off"
+				"noConsole": "off"
+			},
+			"security": {
+				"noSecrets": "off"
 			}
 		}
 	},
@@ -105,7 +102,8 @@
 		},
 		"parser": {
 			"allowWrongLineComments": false,
-			"cssModules": false
+			"cssModules": false,
+			"tailwindDirectives": true
 		}
 	},
 	"json": {
@@ -132,34 +130,35 @@
 		"defaultBranch": "main"
 	},
 	"files": {
-		"ignore": [
-			"packages/design-system/components/ui/**",
-			"packages/design-system/lib/**",
-			"packages/design-system/hooks/**",
-			"packages/collaboration/config.ts",
-			"apps/docs/**/*.json",
-			"apps/email/.react-email/**",
-			"apps/storybook/storybook-static/**",
-			"apps/**/.next/**",
-			"apps/**/node_modules/**",
-			"apps/**/catalyst/**"
+		"includes": [
+			"**",
+			"!public",
+			"!**/packages/design-system/components/ui/**",
+			"!**/packages/design-system/lib/**",
+			"!**/packages/design-system/hooks/**",
+			"!**/packages/collaboration/config.ts",
+			"!**/apps/docs/**/*.json",
+			"!**/apps/email/.react-email/**",
+			"!**/apps/storybook/storybook-static/**",
+			"!**/apps/**/.next/**",
+			"!**/apps/**/node_modules/**",
+			"!**/apps/**/catalyst/**"
 		]
 	},
 	"overrides": [
 		{
-			"include": ["./apps/api/app/**"],
+			"includes": ["apps/api/app/**"],
 			"linter": {
 				"rules": {
 					"suspicious": {
 						"noConsole": "off",
-						"noConsoleLog": "off",
 						"useAwait": "off"
 					}
 				}
 			}
 		},
 		{
-			"include": ["./apps/app/app/**"],
+			"includes": ["apps/app/app/**"],
 			"linter": {
 				"rules": {
 					"correctness": {
@@ -169,7 +168,7 @@
 			}
 		},
 		{
-			"include": ["./apps/app/newapp/**"],
+			"includes": ["apps/app/newapp/**"],
 			"linter": {
 				"rules": {
 					"correctness": {
@@ -177,7 +176,6 @@
 					},
 					"suspicious": {
 						"noConsole": "off",
-						"noConsoleLog": "off",
 						"useAwait": "off"
 					}
 				}

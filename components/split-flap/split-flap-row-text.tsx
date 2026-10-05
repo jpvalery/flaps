@@ -1,6 +1,9 @@
 'use client';
 
-import SplitFlapCharacter from '@/components/split-flap/split-flap-character';
+import * as Flapkit from 'flapkit';
+import 'flapkit/flapkit.css';
+import 'flapkit/airport.css';
+import { riffle } from 'flapkit/motion/canvas/riffle';
 import { useEffect, useState } from 'react';
 
 interface SplitFlapRowProps {
@@ -67,44 +70,28 @@ export default function SplitFlapRowText({ string, delay }: SplitFlapRowProps) {
 		return () => clearTimeout(timer);
 	}, [delay]);
 
-	const substrings = splitAndCleanString(string);
+	const rows = splitAndCleanString(string);
 
 	return (
-		<>
-			{/* Mobile /*/}
-			<div className="mx-auto grid max-w-fit grid-flow-row grid-cols-1 place-items-center gap-x-1 gap-y-4 p-8 2xl:hidden">
-				{substrings.map((substring, groupIndex) => (
-					<div
-						key={groupIndex}
-						className="grid max-w-fit grid-cols-10 items-center justify-center gap-1"
-					>
-						{substring
-							.padEnd(10, ' ') // re-pad to 10 after trimming
-							.split('')
-							.map((char, charIndex) => (
-								<SplitFlapCharacter
-									key={charIndex}
-									character={char}
-									delay={isVisible ? (groupIndex * 10 + charIndex + 1) * 100 : 0}
-								/>
-							))}
-					</div>
-				))}
-			</div>
-			{/* Desktop */}
-			<div className="mx-auto hidden max-w-fit gap-1 px-8 py-24 2xl:grid 2xl:grid-flow-col">
-				{string
-					.toUpperCase()
-					.padEnd(40, ' ') // re-pad to 10 after trimming
-					.split('')
-					.map((char, charIndex) => (
-						<SplitFlapCharacter
-							key={charIndex}
-							character={char}
-							delay={isVisible ? 1 : 0}
-						/>
+		<div className="mx-auto max-w-fit p-8 2xl:px-8 2xl:py-24">
+			<Flapkit.Root motion={riffle()}>
+				<Flapkit.Grid aria-label={string} data-look="airport" className="gap-4">
+					{rows.map((row, rowIndex) => (
+						<Flapkit.Row key={rowIndex} className="gap-1 text-amber-400">
+							{[...(isVisible ? row : ' '.repeat(CHUNK_SIZE))].map(
+								(character, index) => (
+									<Flapkit.Cell
+										key={`${rowIndex}-${index}`}
+										className="h-10 w-6 text-xl sm:h-12 sm:w-8 sm:text-2xl"
+									>
+										{character}
+									</Flapkit.Cell>
+								)
+							)}
+						</Flapkit.Row>
 					))}
-			</div>
-		</>
+				</Flapkit.Grid>
+			</Flapkit.Root>
+		</div>
 	);
 }

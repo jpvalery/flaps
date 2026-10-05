@@ -11,9 +11,10 @@
 
 ## 🚀 Tech Stack
 
-- **Framework**: [Next.js](https://nextjs.org/) 15 (App Router)
+- **Framework**: [Next.js](https://nextjs.org/) 16 (App Router)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Database**: PostgreSQL (via [Prisma ORM](https://www.prisma.io/))
+- **Split-flap display**: [Flapkit](https://cuvii.dev/flapkit/)
+- **Database**: PostgreSQL (via [Prisma ORM](https://www.prisma.io/) 7 and the `pg` driver adapter)
 - **Emails**: [Resend](https://resend.com)
 - **Hosting**: Easily deployable to Vercel
 

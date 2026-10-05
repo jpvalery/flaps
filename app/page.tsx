@@ -90,11 +90,11 @@ export default function Home() {
 									<PlaneLandingIcon className="-mt-0.5 size-5" />
 									DESTINATION
 								</div>
-								<div className="col-span-4 flex items-center gap-2">
+								<div className="col-span-3 flex items-center gap-2">
 									<ClockIcon className="-mt-0.5 size-5" />
 									SCHEDULED
 								</div>
-								<div className="col-span-2 flex items-center gap-2">
+								<div className="col-span-3 flex items-center gap-2">
 									<TicketsPlaneIcon className="-mt-0.5 size-5" />
 									SEATS
 								</div>
