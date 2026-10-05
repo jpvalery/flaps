@@ -1,9 +1,6 @@
 'use client';
 
-import * as Flapkit from 'flapkit';
-import 'flapkit/flapkit.css';
-import 'flapkit/airport.css';
-import { riffle } from 'flapkit/motion/canvas/riffle';
+import FlapField from '@/components/split-flap/flap-field';
 import { useEffect, useState } from 'react';
 
 interface SplitFlapRowProps {
@@ -11,7 +8,7 @@ interface SplitFlapRowProps {
 	delay: number;
 }
 
-const CHUNK_SIZE = 10;
+const CHUNK_SIZE = 20;
 const CHUNK_BREAK_REGEX = / [A-Z0-9]$/;
 const SPLIT_REGEX = /\s+/;
 
@@ -73,25 +70,13 @@ export default function SplitFlapRowText({ string, delay }: SplitFlapRowProps) {
 	const rows = splitAndCleanString(string);
 
 	return (
-		<div className="mx-auto max-w-fit p-8 2xl:px-8 2xl:py-24">
-			<Flapkit.Root motion={riffle()}>
-				<Flapkit.Grid aria-label={string} data-look="airport" className="gap-4">
-					{rows.map((row, rowIndex) => (
-						<Flapkit.Row key={rowIndex} className="gap-1 text-amber-400">
-							{[...(isVisible ? row : ' '.repeat(CHUNK_SIZE))].map(
-								(character, index) => (
-									<Flapkit.Cell
-										key={`${rowIndex}-${index}`}
-										className="h-10 w-6 text-xl sm:h-12 sm:w-8 sm:text-2xl"
-									>
-										{character}
-									</Flapkit.Cell>
-								)
-							)}
-						</Flapkit.Row>
-					))}
-				</Flapkit.Grid>
-			</Flapkit.Root>
+		<div className="mx-auto w-full max-w-5xl p-8 2xl:py-24">
+			<FlapField
+				label={string}
+				rows={rows.map((row) => (isVisible ? row : ' '.repeat(CHUNK_SIZE)))}
+				maxCellWidth={72}
+				center
+			/>
 		</div>
 	);
 }

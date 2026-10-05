@@ -1,5 +1,6 @@
 'use client';
 
+import FlapField from '@/components/split-flap/flap-field';
 import {
 	BLANK_FIELD,
 	seatsLabel,
@@ -7,10 +8,6 @@ import {
 	toScheduleField,
 } from '@/components/split-flap/flaps';
 import InteractiveWrapper from '@/components/ui/interactive-wrapper';
-import * as Flapkit from 'flapkit';
-import 'flapkit/flapkit.css';
-import 'flapkit/airport.css';
-import { riffle } from 'flapkit/motion/canvas/riffle';
 import type React from 'react';
 import { useEffect, useState } from 'react';
 
@@ -40,45 +37,17 @@ function GridCaseLabel({ children }: { children: React.ReactNode }) {
 
 function GridCaseContent({
 	children,
-	className = '2xl:col-span-4',
+	className = '',
 }: {
 	children: React.ReactNode;
 	className?: string;
 }) {
 	return (
-		<div className={`col-span-14 sm:col-span-12 lg:col-span-6 ${className}`}>
+		<div
+			className={`col-span-14 sm:col-span-12 lg:col-span-6 2xl:col-span-1 ${className}`}
+		>
 			{children}
 		</div>
-	);
-}
-
-const CELL_CLASS = 'h-10 w-6 text-xl sm:h-12 sm:w-8 sm:text-2xl';
-const COMPACT_CELL_CLASS = 'h-7 w-4 text-sm';
-
-function Field({
-	label,
-	value,
-	compact,
-}: {
-	label: string;
-	value: string;
-	compact?: boolean;
-}) {
-	return (
-		<Flapkit.Root motion={riffle()}>
-			<Flapkit.Grid aria-label={label} data-look="airport">
-				<Flapkit.Row className="gap-1 text-amber-400">
-					{[...value].map((character, index) => (
-						<Flapkit.Cell
-							key={index}
-							className={compact ? COMPACT_CELL_CLASS : CELL_CLASS}
-						>
-							{character}
-						</Flapkit.Cell>
-					))}
-				</Flapkit.Row>
-			</Flapkit.Grid>
-		</Flapkit.Root>
 	);
 }
 
@@ -99,28 +68,34 @@ export default function SplitFlapRow({
 
 	return (
 		<InteractiveWrapper
-			className="cursor-pointer border-amber-600/20 border-b transition-colors duration-200 last:border-b-0 hover:bg-zinc-800/50 max-lg:mx-auto max-lg:max-w-fit"
+			className="cursor-pointer border-amber-600/20 border-b transition-colors duration-200 last:border-b-0 hover:bg-zinc-800/50"
 			onClick={onClick}
 		>
-			<div className="grid grid-cols-14 items-center gap-4 p-8">
+			<div className="grid grid-cols-14 items-center gap-4 p-8 2xl:grid-cols-4">
 				<GridCaseLabel>FROM</GridCaseLabel>
 				<GridCaseContent>
-					<Field label="Departure" value={show(toField(flight.departure))} />
+					<FlapField label="Departure" rows={[show(toField(flight.departure))]} />
 				</GridCaseContent>
 
 				<GridCaseLabel>TO</GridCaseLabel>
 				<GridCaseContent>
-					<Field label="Destination" value={show(toField(flight.destination))} />
+					<FlapField
+						label="Destination"
+						rows={[show(toField(flight.destination))]}
+					/>
 				</GridCaseContent>
 
 				<GridCaseLabel>ON</GridCaseLabel>
-				<GridCaseContent className="2xl:col-span-3">
-					<Field label="Scheduled" value={show(toScheduleField(flight.datetime))} />
+				<GridCaseContent>
+					<FlapField
+						label="Scheduled"
+						rows={[show(toScheduleField(flight.datetime))]}
+					/>
 				</GridCaseContent>
 
 				<GridCaseLabel>SEATS</GridCaseLabel>
-				<div className="col-span-14 justify-self-start sm:col-span-12 lg:col-span-6 2xl:col-span-3">
-					<Field label="Seats" value={show(seatsLabel(flight.spotsLeft))} compact />
+				<div className="col-span-14 sm:col-span-12 lg:col-span-6 2xl:col-span-1">
+					<FlapField label="Seats" rows={[show(seatsLabel(flight.spotsLeft))]} />
 				</div>
 			</div>
 		</InteractiveWrapper>
