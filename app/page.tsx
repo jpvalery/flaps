@@ -76,25 +76,25 @@ export default function Home() {
 			<Header title="NEXT DEPARTURES" subtitle="" />
 
 			{/* Main Content */}
-			<main className="container mx-auto grid min-h-[75dvh] grid-flow-row gap-8 px-4 py-8">
+			<main className="mx-auto grid min-h-[75dvh] w-full grid-flow-row gap-8 px-4 py-8">
 				<div className="mx-auto w-full">
 					{/* Board Header */}
 					<section className="hidden 2xl:inline">
-						<div className="rounded-t-xs border border-amber-700/40 bg-zinc-900 p-4">
-							<div className="grid grid-cols-14 gap-2 font-semibold text-amber-500 tracking-wider">
-								<div className="col-span-4 flex items-center gap-2">
+						<div className="rounded-t-xs border border-amber-700/40 bg-zinc-900 px-8 py-4">
+							<div className="grid grid-cols-4 gap-4 font-semibold text-amber-500 tracking-wider">
+								<div className="flex items-center gap-2">
 									<PlaneTakeoffIcon className="-mt-0.5 size-5" />
 									DEPARTURE
 								</div>
-								<div className="col-span-4 flex items-center gap-2">
+								<div className="flex items-center gap-2">
 									<PlaneLandingIcon className="-mt-0.5 size-5" />
 									DESTINATION
 								</div>
-								<div className="col-span-4 flex items-center gap-2">
+								<div className="flex items-center gap-2">
 									<ClockIcon className="-mt-0.5 size-5" />
 									SCHEDULED
 								</div>
-								<div className="col-span-2 flex items-center gap-2">
+								<div className="flex items-center gap-2">
 									<TicketsPlaneIcon className="-mt-0.5 size-5" />
 									SEATS
 								</div>

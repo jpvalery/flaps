@@ -1,6 +1,6 @@
 'use client';
 
-import SplitFlapCharacter from '@/components/split-flap/split-flap-character';
+import FlapField from '@/components/split-flap/flap-field';
 import { useEffect, useState } from 'react';
 
 interface SplitFlapRowProps {
@@ -8,7 +8,7 @@ interface SplitFlapRowProps {
 	delay: number;
 }
 
-const CHUNK_SIZE = 10;
+const CHUNK_SIZE = 20;
 const CHUNK_BREAK_REGEX = / [A-Z0-9]$/;
 const SPLIT_REGEX = /\s+/;
 
@@ -67,44 +67,16 @@ export default function SplitFlapRowText({ string, delay }: SplitFlapRowProps) {
 		return () => clearTimeout(timer);
 	}, [delay]);
 
-	const substrings = splitAndCleanString(string);
+	const rows = splitAndCleanString(string);
 
 	return (
-		<>
-			{/* Mobile /*/}
-			<div className="mx-auto grid max-w-fit grid-flow-row grid-cols-1 place-items-center gap-x-1 gap-y-4 p-8 2xl:hidden">
-				{substrings.map((substring, groupIndex) => (
-					<div
-						key={groupIndex}
-						className="grid max-w-fit grid-cols-10 items-center justify-center gap-1"
-					>
-						{substring
-							.padEnd(10, ' ') // re-pad to 10 after trimming
-							.split('')
-							.map((char, charIndex) => (
-								<SplitFlapCharacter
-									key={charIndex}
-									character={char}
-									delay={isVisible ? (groupIndex * 10 + charIndex + 1) * 100 : 0}
-								/>
-							))}
-					</div>
-				))}
-			</div>
-			{/* Desktop */}
-			<div className="mx-auto hidden max-w-fit gap-1 px-8 py-24 2xl:grid 2xl:grid-flow-col">
-				{string
-					.toUpperCase()
-					.padEnd(40, ' ') // re-pad to 10 after trimming
-					.split('')
-					.map((char, charIndex) => (
-						<SplitFlapCharacter
-							key={charIndex}
-							character={char}
-							delay={isVisible ? 1 : 0}
-						/>
-					))}
-			</div>
-		</>
+		<div className="mx-auto w-full max-w-5xl p-8 2xl:py-24">
+			<FlapField
+				label={string}
+				rows={rows.map((row) => (isVisible ? row : ' '.repeat(CHUNK_SIZE)))}
+				maxCellWidth={72}
+				center
+			/>
+		</div>
 	);
 }

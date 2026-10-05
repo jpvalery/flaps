@@ -11,9 +11,10 @@
 
 ## 🚀 Tech Stack
 
-- **Framework**: [Next.js](https://nextjs.org/) 15 (App Router)
+- **Framework**: [Next.js](https://nextjs.org/) 16 (App Router)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Database**: PostgreSQL (via [Prisma ORM](https://www.prisma.io/))
+- **Split-flap display**: [Flapkit](https://cuvii.dev/flapkit/)
+- **Database**: PostgreSQL (via [Drizzle ORM](https://orm.drizzle.team/) and `pg`)
 - **Emails**: [Resend](https://resend.com)
 - **Hosting**: Easily deployable to Vercel
 
@@ -36,7 +37,7 @@ RESTful API routes available under `/api`:
 
 | Method | Endpoint                   | Description                 |
 | ------ | -------------------------- | --------------------------- |
-| POST   | `/api/booking/cancel/:id`  | Cancel a single booking     |
+| DELETE | `/api/booking/cancel/:id`  | Cancel a single booking     |
 | POST   | `/api/booking/confirm/:id` | Confirm a single booking    |
 | POST   | `/api/booking/create`      | Create a booking            |
 | GET    | `/api/booking/get/:id`     | Fetch details for a booking |
@@ -66,12 +67,10 @@ RESTful API routes available under `/api`:
 
    Duplicate the `env.example` file and add the required variables:
 
-4. **Generate and apply database schema:**
+4. **Apply the database schema:**
 
    ```bash
-   npx prisma generate
-   npx prisma migrate dev --name init
-	npx prisma db push
+   pnpm db:push
    ```
 
 5. **Run the dev server:**
@@ -93,8 +92,8 @@ RESTful API routes available under `/api`:
   /components     → Reusable UI components
   /email          → react.email templates
   /fonts	  → Open fonts used
-  /lib            → Prisma, utilities, helper functions
-  /prisma         → Schema + generated client
+  /lib            → Utilities, helper functions
+  /lib/db         → Drizzle schema + client
   /public         → Public folder
 ```
 

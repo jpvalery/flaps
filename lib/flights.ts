@@ -1,6 +1,7 @@
-import { prisma } from './prisma';
-
+import { db } from '@/lib/db';
+import { bookings, flights } from '@/lib/db/schema';
 import type { Booking } from '@/types';
+import { asc, eq, gte } from 'drizzle-orm';
 
 import {
 	cancelBookingsByFlightId,
@@ -16,18 +17,13 @@ import type { CreateFlightPayload, EmailData, Flight } from '@/types';
 
 export async function getFlights(): Promise<Flight[]> {
 	try {
-		const flights = await prisma.flight.findMany({
-			where: {
-				datetime: {
-					gte: new Date(new Date().setHours(0, 0, 0, 0)),
-				},
-			},
-			orderBy: {
-				datetime: 'asc',
-			},
-		});
+		const rows = await db
+			.select()
+			.from(flights)
+			.where(gte(flights.datetime, new Date(new Date().setHours(0, 0, 0, 0))))
+			.orderBy(asc(flights.datetime));
 
-		return flights.map((flight) => ({
+		return rows.map((flight) => ({
 			id: flight.id,
 			departure: flight.departure,
 			destination: flight.destination,
@@ -44,9 +40,7 @@ export async function getFlights(): Promise<Flight[]> {
 
 export async function getFlightById(id: string): Promise<Flight | null> {
 	try {
-		const flight = await prisma.flight.findUnique({
-			where: { id },
-		});
+		const [flight] = await db.select().from(flights).where(eq(flights.id, id));
 
 		if (!flight) {
 			return null;
@@ -72,20 +66,16 @@ export async function updateFlightSpots(
 	spotsToBook: number
 ): Promise<boolean> {
 	try {
-		const flight = await prisma.flight.findUnique({
-			where: { id },
-		});
+		const [flight] = await db.select().from(flights).where(eq(flights.id, id));
 
 		if (!flight || flight.spotsLeft < spotsToBook) {
 			return false;
 		}
 
-		await prisma.flight.update({
-			where: { id },
-			data: {
-				spotsLeft: flight.spotsLeft - spotsToBook,
-			},
-		});
+		await db
+			.update(flights)
+			.set({ spotsLeft: flight.spotsLeft - spotsToBook })
+			.where(eq(flights.id, id));
 
 		return true;
 	} catch (error) {
@@ -96,16 +86,17 @@ export async function updateFlightSpots(
 
 export async function createFlight(payload: CreateFlightPayload) {
 	try {
-		const newFlight = await prisma.flight.create({
-			data: {
+		const [newFlight] = await db
+			.insert(flights)
+			.values({
 				departure: payload.departure,
 				destination: payload.destination,
 				datetime: new Date(payload.datetime),
 				spotsLeft: Number(payload.spotsLeft),
 				aircraft: payload.aircraft,
 				notes: payload.notes || '',
-			},
-		});
+			})
+			.returning();
 
 		const broadcastData = generateNewFlightBroadcast({
 			id: newFlight.id,
@@ -137,13 +128,16 @@ export async function createFlight(payload: CreateFlightPayload) {
 export async function cancelFlight(flightId: string): Promise<boolean> {
 	try {
 		// Ensure the flight exists
-		const flight = await prisma.flight.findUnique({ where: { id: flightId } });
+		const [flight] = await db
+			.select()
+			.from(flights)
+			.where(eq(flights.id, flightId));
 		if (!flight) {
 			throw new Error('Flight not found');
 		}
 
 		// Get associated bookings
-		const bookings = await getBookingsByFlightId(flightId);
+		const flightBookings = await getBookingsByFlightId(flightId);
 
 		// Update all to status CANCELLED
 		const cancelled = await cancelBookingsByFlightId(flightId);
@@ -152,7 +146,7 @@ export async function cancelFlight(flightId: string): Promise<boolean> {
 		}
 
 		// Send emails in batch
-		const emailDataList: EmailData[] = bookings.map((booking) => {
+		const emailDataList: EmailData[] = flightBookings.map((booking) => {
 			const bookingForEmail = {
 				...booking,
 				flight: {
@@ -177,10 +171,10 @@ export async function cancelFlight(flightId: string): Promise<boolean> {
 		await sendBatchEmail(emailDataList);
 
 		// Safely delete all related bookings and the flight in a transaction
-		await prisma.$transaction([
-			prisma.booking.deleteMany({ where: { flightId } }),
-			prisma.flight.delete({ where: { id: flightId } }),
-		]);
+		await db.transaction(async (tx) => {
+			await tx.delete(bookings).where(eq(bookings.flightId, flightId));
+			await tx.delete(flights).where(eq(flights.id, flightId));
+		});
 
 		return true;
 	} catch (error) {
